@@ -10,10 +10,10 @@ app.post('/signin', async (req, res) => {
 		const user = await new User({
 			name: req.body.name,
 			email: req.body.email,
-			password: req.body.password,
-		});
-		await user.save();
-		res.send(user);
+				password: password,
+			});
+			await user.save();
+			res.send(user);
 	} catch (err) {
 		res.send(err);
 	}
