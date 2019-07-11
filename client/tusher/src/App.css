@@ -45,7 +45,7 @@
   bottom: 2px;
   left: 0;
   display: block;
-  background-color: #FC427B;
+  background-color: #ee2e68;
   z-index: -1;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .wellcome .button button:hover {
-  color: #FC427B;
+  color: #ee2e68;
 }
 
 .devprofile .header {
@@ -98,7 +98,7 @@
       -ms-flex-align: center;
           align-items: center;
   padding: 43px 0;
-  background: #FC427B;
+  background: #ee2e68;
   color: white;
 }
 
@@ -106,8 +106,12 @@
   padding: 5px 0;
 }
 
+.devprofile .profile {
+  padding: 30px 0;
+}
+
 .devprofile .profile .single_profile {
-  height: 200px;
+  height: 220px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -115,15 +119,52 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background: #ddd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .devprofile .profile .single_profile .image {
-  width: 40%;
+  width: 37%;
 }
 
 .devprofile .profile .single_profile .image img {
   height: 100%;
   width: 100%;
+}
+
+.devprofile .profile .single_profile .profile_details {
+  margin-left: 10px;
+  padding-top: 5px;
+}
+
+.devprofile .profile .single_profile .profile_details .skill {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 126px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.devprofile .profile .single_profile .profile_details .skill span {
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  margin: 1px;
+  padding: 1px 3px;
+  font-family: serif;
+}
+
+.devprofile .profile .single_profile .profile_details .skill button {
+  display: block;
+  clear: both;
+  background: #ee2e68;
+  color: white;
 }
 /*# sourceMappingURL=App.css.map */

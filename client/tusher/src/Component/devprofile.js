@@ -9,14 +9,36 @@ export class devprofile extends Component {
 					<p>Connect with developars</p>
 				</div>
 				<div className="profile container">
-					<div className="single_profile col-md-6">
-						<div className="image">
-							<img
-								src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-								alt=""
-							/>
+					<div className=" col-lg-6">
+						<div className="single_profile">
+							<div className="image">
+								<img
+									src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+									alt=""
+								/>
+							</div>
+							<div className="profile_details">
+								<div className="name">
+									<h3>Jane Alam Tusehr</h3>
+									<p>Full Stack Web developar</p>
+								</div>
+								<div className="skill">
+									<div>
+										<span>Html</span>
+										<span>Css</span>
+										<span>React js</span>
+										<span>JavaScript</span>
+										<span>Node js</span>
+										<span>Angular</span>
+										<span>Redux</span>
+										<span>MongoDB</span>
+									</div>
+									<div>
+										<button className="btn">View Profile</button>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div>dfsdfsdfsdf</div>
 					</div>
 				</div>
 			</div>
