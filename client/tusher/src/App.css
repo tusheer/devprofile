@@ -1,0 +1,129 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.wellcome {
+  background: linear-gradient(130deg, #1f403796, #99f2c85d), url("https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_960_720.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wellcome .head {
+  margin-top: 15%;
+  text-align: center;
+  color: white;
+}
+
+.wellcome .head h1 {
+  font-size: 2.3rem;
+  padding: 10px;
+}
+
+.wellcome .head h1 span {
+  position: relative;
+  z-index: 2;
+  font-weight: lighter;
+}
+
+.wellcome .head h1 span::before {
+  content: '';
+  position: absolute;
+  top: 11px;
+  right: 0;
+  bottom: 2px;
+  left: 0;
+  display: block;
+  background-color: #FC427B;
+  z-index: -1;
+}
+
+.wellcome .head p {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.wellcome .button {
+  width: 190px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.wellcome .button button {
+  outline: none;
+  padding: 12px 15px;
+  background-color: #252525;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  -webkit-transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.wellcome .button button:active {
+  background-color: black;
+}
+
+.wellcome .button button:hover {
+  color: #FC427B;
+}
+
+.devprofile .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 43px 0;
+  background: #FC427B;
+  color: white;
+}
+
+.devprofile .header h1 {
+  padding: 5px 0;
+}
+
+.devprofile .profile .single_profile {
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background: #ddd;
+}
+
+.devprofile .profile .single_profile .image {
+  width: 40%;
+}
+
+.devprofile .profile .single_profile .image img {
+  height: 100%;
+  width: 100%;
+}
+/*# sourceMappingURL=App.css.map */

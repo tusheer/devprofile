@@ -1,0 +1,117 @@
+$brand: #FC427B;
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.wellcome {
+    background: linear-gradient(130deg, #1f403796, #99f2c85d), url('https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_960_720.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+
+    .head {
+        margin-top: 15%;
+
+        text-align: center;
+        color: white;
+
+        h1 {
+            font-size: 2.3rem;
+            padding: 10px;
+
+            span {
+                position: relative;
+                z-index: 2;
+                font-weight: lighter;
+            }
+
+            span::before {
+                content: '';
+                position: absolute;
+                top: 11px;
+                right: 0;
+                bottom: 2px;
+                left: 0;
+                display: block;
+                background-color: $brand;
+                z-index: -1;
+
+            }
+
+        }
+
+        p {
+            font-size: 20px;
+            padding: 10px;
+        }
+    }
+
+    .button {
+        width: 190px;
+        display: flex;
+        justify-content: space-around;
+
+        button {
+            outline: none;
+            padding: 12px 15px;
+            background-color: rgb(37, 37, 37);
+            border-radius: 5px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        button:active {
+            background-color: black;
+        }
+
+        button:hover {
+            color: $brand;
+
+        }
+    }
+}
+
+.devprofile {
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 43px 0;
+        background: $brand;
+        color: white;
+
+        h1 {
+            padding: 5px 0;
+
+        }
+
+    }
+
+    .profile {
+        .single_profile {
+            height: 200px;
+            display: flex;
+            flex-direction: row;
+            background: #ddd;
+
+            .image {
+                width: 40%;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+        }
+    }
+}

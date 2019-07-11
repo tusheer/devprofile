@@ -22,4 +22,4 @@ app.use('/users', users);
 app.post('/', (req, res) => {
 	res.send('HI every one i am jane alam tusehr and shorna');
 });
-mongoose.connect('mongodb://localhost:27017/users').then(app.listen(4000, () => console.log('game on')));
+mongoose.connect('mongodb://localhost:27017/users', {}).then(app.listen(4000, () => console.log('game on')));
