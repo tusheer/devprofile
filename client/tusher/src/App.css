@@ -13,11 +13,11 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .wellcome .head {
@@ -52,6 +52,7 @@
 .wellcome .head p {
   font-size: 20px;
   padding: 10px;
+  font-family: 'PT Sans Narrow';
 }
 
 .wellcome .button {
@@ -60,7 +61,7 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
 
 .wellcome .button button {
@@ -84,21 +85,23 @@
 }
 
 .devprofile .header {
+  font-family: 'PT Sans Narrow';
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 43px 0;
-  background: #ee2e68;
+  background: #020024;
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
   color: white;
 }
 
@@ -110,6 +113,12 @@
   padding: 30px 0;
 }
 
+.devprofile .profile :hover .profile_details .name h3 {
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .devprofile .profile .single_profile {
   height: 220px;
   display: -webkit-box;
@@ -117,15 +126,15 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .devprofile .profile .single_profile .image {
-  width: 37%;
+  width: 50%;
 }
 
 .devprofile .profile .single_profile .image img {
@@ -145,11 +154,11 @@
   height: 126px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
 .devprofile .profile .single_profile .profile_details .skill span {
@@ -167,4 +176,52 @@
   background: #ee2e68;
   color: white;
 }
+
+.header {
+  width: 100%;
+  background: #020024;
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  overflow: hidden;
+}
+
+.header .row .image_wraper {
+  padding-top: 80px;
+  padding-bottom: 40px;
+  height: 400px;
+}
+
+.header .row .image_wraper img {
+  height: 100%;
+  width: 80%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  float: right;
+}
+
+.header .row .profile_details {
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-bottom: 40px;
+  font-family: 'PT Sans Narrow';
+}
+
+.header .row .icon i {
+  font-size: 27px;
+  padding: 5px;
+  margin-right: 4px;
+}
+
+.header .row .icon i:hover {
+  transform: scale(1.05);
+}
+
 /*# sourceMappingURL=App.css.map */
