@@ -22,6 +22,7 @@ export class personal extends Component {
 						</div>
 					</div>
 				</div>
+				<Body />
 			</div>
 		);
 	}
@@ -35,6 +36,48 @@ function Icon() {
 			<i class="fa fa-linkedin-square" />
 			<i class="fa fa-twitter-square" />
 			<i class="fa fa-instagram" />
+		</div>
+	);
+}
+
+function Body() {
+	return (
+		<div className="body container-fluid">
+			<div className="container">
+				<div className="row">
+					<div className="col-md-4 left">
+						<div className="bio">
+							<h3>
+								<i class="fa fa-info-circle" />Bio
+							</h3>
+							<p>
+								I love proggraming. I have been worked 3 years. And enjoy every little moment when I
+								coding
+							</p>
+						</div>
+						<div className="skill">
+							<div>
+								<h3>
+									<i class="fa fa-pencil-ruler" />Skill Set
+								</h3>
+							</div>
+							<span>Html</span>
+							<span>Css</span>
+							<span>React js</span>
+							<span>JavaScript</span>
+							<span>Node js</span>
+							<span>Angular</span>
+							<span>Redux</span>
+							<span>MongoDB</span>
+						</div>
+					</div>
+
+					<div className="col-md-8 right">
+						<div className="experience">Experience</div>
+						<div className="education">Education</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
