@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 export class devprofile extends Component {
 	render() {
 		return (
 			<div className="devprofile">
 				<div className="header">
-					<h1>Developar Profile</h1>
+					<h1>Developar's Profile</h1>
 					<p>Connect with developars</p>
 				</div>
 				<div className="profile container">
@@ -37,7 +37,9 @@ export class devprofile extends Component {
 											<span>MongoDB</span>
 										</div>
 										<div>
-											<button className="btn">View Profile</button>
+											<Link to="/personal">
+												<button className="btn">View Profile</button>
+											</Link>
 										</div>
 									</div>
 								</div>

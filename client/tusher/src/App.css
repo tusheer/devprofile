@@ -1,6 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
 * {
   padding: 0;
   margin: 0;
+}
+
+.gradient {
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .wellcome {
@@ -52,7 +59,7 @@
 .wellcome .head p {
   font-size: 20px;
   padding: 10px;
-  font-family: 'PT Sans Narrow';
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .wellcome .button {
@@ -82,6 +89,10 @@
 
 .wellcome .button button:hover {
   color: #ee2e68;
+}
+
+.devprofile {
+  padding-top: 61px;
 }
 
 .devprofile .header {
@@ -181,7 +192,11 @@
   font-family: serif;
 }
 
-.devprofile .profile .single_profile .profile_details .skill button {
+.devprofile .profile .single_profile .profile_details .skill a {
+  text-decoration: none;
+}
+
+.devprofile .profile .single_profile .profile_details .skill a button {
   display: block;
   clear: both;
   background: #ee2e68;
@@ -189,6 +204,7 @@
 }
 
 .header {
+  padding-top: 61px;
   width: 100%;
   background: #020024;
   background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
@@ -238,7 +254,7 @@
 
 .body {
   background: #e7e2e2;
-  font-family: 'PT Sans Narrow';
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .body .left .bio {
@@ -303,7 +319,7 @@
 }
 
 .body .left .education {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   background-color: white;
   -webkit-box-shadow: -2px 2px 2px -3px #000000;
           box-shadow: -2px 2px 2px -3px #000000;
@@ -321,6 +337,23 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-right: 4px;
+}
+
+.body .left .education .education_wraper {
+  padding: 5px 25px 20px 25px;
+}
+
+.body .left .education .education_wraper .single_education {
+  border-bottom: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.body .left .education .education_wraper .single_education:last-child {
+  border: none;
+}
+
+.body .left .education .education_wraper .single_education:first-child {
+  padding-top: 10px;
 }
 
 .body .right .experience {
@@ -360,6 +393,193 @@
 
 .body .right .experience_wraper .single_experience:first-child {
   padding-top: 10px;
+}
+
+.menu {
+  background: white;
+  -webkit-box-shadow: 0px 3px 4px -1px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 3px 4px -1px rgba(0, 0, 0, 0.75);
+  z-index: 10000;
+  position: fixed;
+  width: 100%;
+}
+
+.menu nav {
+  font-family: 'Source Sans Pro', sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: default;
+}
+
+.menu nav .left_side {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu nav .left_side .brand_name {
+  font-weight: bold;
+  font-size: 1.3rem;
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.menu nav .left_side p {
+  font-size: 1.1rem;
+  margin-bottom: 0px;
+  padding: 15px 20px;
+  color: #7a7171;
+  font-weight: bold;
+  cursor: default;
+}
+
+.menu nav .left_side p:hover {
+  color: black;
+}
+
+.menu nav .left_side p a {
+  text-decoration: none;
+  color: #7a7171;
+}
+
+.menu nav .left_side p a:hover {
+  color: black;
+}
+
+.menu nav .right_side {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu nav .right_side p {
+  font-size: 1.1rem;
+  margin-bottom: 0px;
+  padding: 15px 20px;
+  color: #7a7171;
+  font-weight: bold;
+}
+
+.menu nav .right_side p:hover {
+  color: black;
+}
+
+.menu nav .right_side p a {
+  text-decoration: none;
+  color: #7a7171;
+}
+
+.menu nav .right_side p a:hover {
+  color: black;
+}
+
+.login {
+  padding-top: 61px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.login .login_header h1 {
+  font-weight: bold;
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login .login_header p {
+  font-size: 1.1rem;
+}
+
+.login .login_form {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0px 160px;
+}
+
+.login .login_form button {
+  background: #ee2e68;
+}
+
+.signup {
+  padding-top: 61px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.signup .signup_header h1 {
+  font-weight: bold;
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.signup .signup_header p {
+  font-size: 1.1rem;
+}
+
+.signup .signup_form {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0px 160px;
+}
+
+.signup .signup_form button {
+  background: #ee2e68;
+}
+
+.dashboard {
+  padding-top: 61px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.dashboard .dashboard_header h1 {
+  font-weight: bold;
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dashboard .dashboard_header p {
+  font-size: 1.1rem;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.dashboard .edit {
+  background: #000;
+  color: white;
+  border-radius: 4px;
+}
+
+.dashboard .edit:hover {
+  background: #000;
+}
+
+.edit_profile {
+  padding-top: 61px;
 }
 
 @media (max-width: 800px) {

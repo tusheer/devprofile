@@ -79,6 +79,21 @@ function Body() {
 							<div className="education_wraper">
 								<div className="single_education">
 									<h4>University of Chittagong</h4>
+
+									<p>
+										<span>2016/02</span> - <span>2019/01</span>
+									</p>
+									<p>
+										<b>Degree: </b>
+										<span>Chittagong, Bangladesh</span>
+									</p>
+									<p>
+										<b>Field of study:</b> <span>Full Stack Web Developar</span>
+									</p>
+								</div>
+								<div className="single_education">
+									<h4>University of Chittagong</h4>
+
 									<p>
 										<span>2016/02</span> - <span>2019/01</span>
 									</p>
@@ -130,6 +145,12 @@ function Body() {
 										<span>Full Stack Web Developar</span>
 									</p>
 								</div>
+							</div>
+						</div>
+
+						<div className="post">
+							<div className="post_header">
+								<h3>Post</h3>
 							</div>
 						</div>
 					</div>
