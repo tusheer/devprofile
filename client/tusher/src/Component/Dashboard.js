@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default class Dashboard extends Component {
 	render() {
 		return (
-			<div className="dashboard">
+			<div className="dashboard padding_top">
 				<div className="dashboard_header mb-3">
 					<h1 className="pt-2 text-center">Dashboard</h1>
 					<p className="text-center ">
@@ -19,7 +19,7 @@ export default class Dashboard extends Component {
 						</Link>
 						<Link to="/editexperience">
 							<div className="p-1 ml-1 edit">
-								<i class="fa fa-info mr-1" />Edit Experience
+								<i class="fa fa-info mr-1" />Add Experience
 							</div>
 						</Link>
 						<Link to="/editeducation">

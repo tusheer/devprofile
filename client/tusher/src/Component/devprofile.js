@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export class devprofile extends Component {
 	render() {
 		return (
-			<div className="devprofile">
+			<div className="devprofile padding_top">
 				<div className="header">
 					<h1>Developar's Profile</h1>
 					<p>Connect with developars</p>

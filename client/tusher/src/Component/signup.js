@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Signup extends Component {
 	render() {
 		return (
-			<div className="signup">
+			<div className="signup padding_top">
 				<div className="signup_header pt-4">
 					<h1 className="text-center">Sign up</h1>
 					<p className="text-center">Create your DevConnect account.</p>

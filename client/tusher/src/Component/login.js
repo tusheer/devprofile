@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class login extends Component {
 	render() {
 		return (
-			<div className="login">
+			<div className="login padding_top">
 				<div className="login_header pt-4">
 					<h1 className="text-center">Log in</h1>
 					<p className="text-center">Log in to your DevConnector account</p>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default class Wellcome extends Component {
 	render() {
 		return (
-			<div className="wellcome">
+			<div className="wellcome padding_top">
 				<div className="head">
 					<h1>
 						<span>Developar</span> Connection

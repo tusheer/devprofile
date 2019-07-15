@@ -4,6 +4,18 @@
   margin: 0;
 }
 
+.padding_top {
+  padding-top: 61px;
+}
+
+.form_wraper {
+  padding: 0px 160px;
+}
+
+.gradient_bg {
+  background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
+}
+
 .gradient {
   background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
   background-clip: text;
@@ -89,10 +101,6 @@
 
 .wellcome .button button:hover {
   color: #ee2e68;
-}
-
-.devprofile {
-  padding-top: 61px;
 }
 
 .devprofile .header {
@@ -204,7 +212,6 @@
 }
 
 .header {
-  padding-top: 61px;
   width: 100%;
   background: #020024;
   background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
@@ -500,7 +507,6 @@
 }
 
 .login {
-  padding-top: 61px;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -526,7 +532,6 @@
 }
 
 .signup {
-  padding-top: 61px;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -552,7 +557,6 @@
 }
 
 .dashboard {
-  padding-top: 61px;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
