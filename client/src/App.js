@@ -14,6 +14,7 @@ import Editprofile from './Component/edit_profile';
 import Experience from './Component/add_experience';
 import Education from './Component/education';
 import AuthState from './contex/auth/authState';
+
 function App() {
 	return (
 		<AuthState>

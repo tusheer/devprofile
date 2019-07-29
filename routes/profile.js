@@ -1,11 +1,37 @@
 const express = require('express');
+const auth = require('../middleware/auth.js');
 const app = express.Router();
+const Profile = require('../models/profile.js');
 
-app.get('/post', (req, res) => {
-	res.status(222).json({
-		name: 'jane alam ',
-		age: 34,
-	});
+app.post('/', auth, async (req, res) => {
+	const name = req.body.name;
+
+	const position = req.body.position;
+	const company = req.body.company;
+	const companyWebsite = req.body.companyWebsite;
+	const location = req.body.location;
+	const skill = req.body.skill;
+
+	const bio = req.body.bio;
+	try {
+		const profile = new Profile({
+			userId: req.body.user,
+			name: name,
+			company: company,
+			position: position,
+			companyWebsite: companyWebsite,
+			location: location,
+			skill: skill,
+			bio: bio,
+		});
+		await profile.save();
+		res.send(profile);
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 module.exports = app;
+app.post('/post', (req, res) => {
+	res.send({ ...req.body });
+});

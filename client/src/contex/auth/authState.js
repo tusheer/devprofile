@@ -3,12 +3,12 @@ import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducers';
 import setAuthToken from './axiosSet';
-import { SIGN_UP, LOG_IN, USER } from '../type';
+import { SIGN_UP, LOG_IN, USER, LOGOUT } from '../type';
 
 const AuthState = (props) => {
 	const initialState = {
 		token: localStorage.getItem('token'),
-		isAuthenticated: null,
+		isAuthenticated: false,
 		loading: true,
 		user: null,
 		error: null,
@@ -16,17 +16,17 @@ const AuthState = (props) => {
 
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 	const userLoder = async () => {
-		if (localStorage.token) {
-			setAuthToken(localStorage.token);
+		const token = localStorage.getItem('token');
+		if (token) {
+			setAuthToken(token);
 		}
-		console.log(localStorage.token);
+
 		try {
 			const res = await axios.get('/api/users/');
 			dispatch({
 				type: USER,
 				payload: res.data,
 			});
-			console.log(res.data);
 		} catch (error) {}
 	};
 
@@ -64,6 +64,11 @@ const AuthState = (props) => {
 			userLoder();
 		} catch (error) {}
 	};
+	const logout = () => {
+		dispatch({
+			type: LOGOUT,
+		});
+	};
 
 	return (
 		<AuthContext.Provider
@@ -72,6 +77,7 @@ const AuthState = (props) => {
 				register,
 				log_in,
 				userLoder,
+				logout,
 			}}
 		>
 			{props.children}
