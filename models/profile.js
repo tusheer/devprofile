@@ -25,7 +25,7 @@ const profileSchema = new userSchema({
 		type: String,
 	},
 	skill: {
-		type: String,
+		type: Array,
 		required: true,
 	},
 	bio: {

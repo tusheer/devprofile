@@ -11,6 +11,7 @@ app.post('/', auth, async (req, res) => {
 	const companyWebsite = req.body.companyWebsite;
 	const location = req.body.location;
 	const skill = req.body.skill;
+	const skillArray = skill.split(',').map((skill) => skill.trim());
 
 	const bio = req.body.bio;
 	try {
@@ -21,7 +22,7 @@ app.post('/', auth, async (req, res) => {
 			position: position,
 			companyWebsite: companyWebsite,
 			location: location,
-			skill: skill,
+			skill: skillArray,
 			bio: bio,
 		});
 		await profile.save();
