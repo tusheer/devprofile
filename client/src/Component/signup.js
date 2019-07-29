@@ -1,15 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import authContext from '../contex/auth/authContext';
 
 const Signup = (props) => {
 	const context = useContext(authContext);
-	const { register } = context;
+	const { register, isAuthenticated } = context;
 	const [ form, setFrom ] = useState({
 		name: '',
 		email: '',
 		password: '',
 		password2: '',
 	});
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			props.history.push('/');
+		}
+	});
+
 	const onChange = (e) => setFrom({ ...form, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {
 		e.preventDefault();
