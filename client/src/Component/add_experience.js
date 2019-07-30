@@ -1,6 +1,53 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 
-export class Experience extends Component {
+import authcontext from '../contex/auth/authContext';
+
+const Experience = (props) => {
+	const contextAuth = useContext(authcontext);
+	const { user, token, isAuthenticated, userLoder } = contextAuth;
+	const replace = () => {
+		props.history.push('/');
+	};
+	return (
+		<div>
+			<Exp userLoder={userLoder} user={user} token={token} isAuth={isAuthenticated} replace={replace} />
+		</div>
+	);
+};
+
+class Exp extends Component {
+	state = {
+		company: '',
+		jobTitle: '',
+		location: '',
+		fromDate: '',
+		toDate: '',
+		isCurrent: '',
+		drescription: '',
+	};
+
+	componentWillMount() {
+		if (this.props.token && !this.props.user) {
+			this.props.userLoder();
+		} else {
+			if (!this.props.isAuth) {
+				this.props.replace();
+			}
+		}
+	}
+
+	onChange = (e) => {
+		this.setState({ ...this.state, [e.target.name]: e.target.value });
+	};
+	onCheck = (e) => {
+		this.setState({ ...this.state, isCurrent: e.target.checked });
+	};
+	onSubmit = (e) => {
+		e.preventDefault();
+		// this.props.editprofile(this.state);
+		console.log(this.state);
+	};
+
 	render() {
 		return (
 			<div className="experience_body padding_top">
@@ -9,37 +56,37 @@ export class Experience extends Component {
 					<p className="text-center">Add any job and position that you have had in the past or current</p>
 				</div>
 				<div className="container">
-					<form className="form_wraper">
-						<div class="form-group mb-1">
+					<form className="form_wraper" onSubmit={this.onSubmit}>
+						<div className="form-group mb-1">
 							<label>Company</label>
-							<input type="text" class="form-control" placeholder="Company name" />
+							<input onChange={this.onChange} name="company" value={this.state.company} type="text" className="form-control" placeholder="Company name" />
 						</div>
-						<div class="form-group mb-1">
+						<div className="form-group mb-1">
 							<label>Job title</label>
-							<input type="text" class="form-control" placeholder="Enter your job title" />
+							<input onChange={this.onChange} name="jobTitle" value={this.state.jobTitle} type="text" className="form-control" placeholder="Enter your job title" />
 						</div>
-						<div class="form-group mb-1">
+						<div className="form-group mb-1">
 							<label>Location</label>
-							<input type="text" class="form-control" placeholder="Job location" />
+							<input onChange={this.onChange} name="location" value={this.state.location} type="text" className="form-control" placeholder="Job location" />
 						</div>
-						<div class="form-group mb-1">
+						<div className="form-group mb-1">
 							<label>From date</label>
-							<input type="date" class="form-control" placeholder="Job location" />
+							<input onChange={this.onChange} name="fromDate" value={this.state.fromDate} type="date" className="form-control" placeholder="Job location" />
 						</div>
-						<div class="form-group mb-1">
+						<div className="form-group mb-1">
 							<label>To date</label>
-							<input type="date" class="form-control" placeholder="Job location" />
+							<input onChange={this.onChange} name="toDate" value={this.state.toDate} type="date" className="form-control" placeholder="Job location" />
 						</div>
-						<div class="form-group mb-1 d-flex align-items-center">
-							<input type="checkbox" />
+						<div className="form-group mb-1 d-flex align-items-center">
+							<input onChange={this.onCheck} name="isCurrent" value={this.state.isCurrent} type="checkbox" />
 							<label className="mb-0 ml-2">Current Job</label>
 						</div>
-						<div class="form-group mb-1">
+						<div className="form-group mb-1">
 							<label>Job description</label>
-							<textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" />
+							<textarea onChange={this.onChange} name="drescription" value={this.state.drescription} className="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" />
 						</div>
 
-						<button type="submit" class="btn btn-primary mb-5 gradient_bg mt-1 p-6">
+						<button type="submit" className="btn btn-primary mb-5 gradient_bg mt-1 p-6">
 							Submit
 						</button>
 					</form>

@@ -33,7 +33,7 @@ const profileSchema = new userSchema({
 	},
 	experience: [
 		{
-			title: {
+			jobTitle: {
 				type: String,
 				required: true,
 			},
@@ -44,14 +44,14 @@ const profileSchema = new userSchema({
 			location: {
 				type: String,
 			},
-			from: {
+			fromData: {
 				type: Date,
 				required: true,
 			},
-			to: {
+			toData: {
 				type: Date,
 			},
-			current: {
+			isCurrent: {
 				type: Boolean,
 				default: false,
 			},
