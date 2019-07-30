@@ -10,7 +10,22 @@ export default function ProfileState(props) {
 	};
 
 	const [ state, dispatch ] = useReducer(profileReducer, inisialState);
+	const exp = async (formdata) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
 
+		try {
+			const res = await axios.post('/profile/addexp', { ...formdata }, config);
+			console.log(res.data);
+			dispatch({
+				type: ADDEXP,
+				payload: res.data,
+			});
+		} catch (error) {}
+	};
 	const editprofile = async (formdata) => {
 		const config = {
 			headers: {
@@ -40,23 +55,6 @@ export default function ProfileState(props) {
 			console.log(res.data);
 			dispatch({
 				type: ADDEDU,
-				payload: res.data,
-			});
-		} catch (error) {}
-	};
-
-	const exp = async (formdata) => {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-
-		try {
-			const res = await axios.post('/profile/addexp', { ...formdata }, config);
-			console.log(res.data);
-			dispatch({
-				type: ADDEXP,
 				payload: res.data,
 			});
 		} catch (error) {}
