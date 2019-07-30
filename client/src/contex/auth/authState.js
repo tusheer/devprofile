@@ -5,6 +5,8 @@ import authReducer from './authReducers';
 import setAuthToken from './axiosSet';
 import { SIGN_UP, LOG_IN, USER, LOGOUT } from '../type';
 
+import ProfileState from '../profile/profileState';
+
 const AuthState = (props) => {
 	const initialState = {
 		token: localStorage.getItem('token'),
@@ -80,7 +82,7 @@ const AuthState = (props) => {
 				logout,
 			}}
 		>
-			{props.children}
+			<ProfileState>{props.children}</ProfileState>
 		</AuthContext.Provider>
 	);
 };
