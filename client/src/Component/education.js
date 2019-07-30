@@ -1,30 +1,38 @@
 import React, { Component, useContext } from 'react';
-import authcontext from '../contex/auth/authContext';
+import authContext from '../contex/auth/authContext';
+import profileContext from '../contex/profile/profileContext';
 
 const Education = (props) => {
-	const contextAuth = useContext(authcontext);
+	const contextAuth = useContext(authContext);
+	const contextPro = useContext(profileContext);
 	const { user, token, isAuthenticated, userLoder } = contextAuth;
+	const { addedu } = contextPro;
 	const replace = () => {
 		props.history.push('/');
 	};
 	return (
 		<div>
-			<Edu userLoder={userLoder} user={user} token={token} isAuth={isAuthenticated} replace={replace} />
+			<Edu
+				addedu={addedu}
+				userLoder={userLoder}
+				user={user}
+				token={token}
+				isAuth={isAuthenticated}
+				replace={replace}
+			/>
 		</div>
 	);
 };
 
 class Edu extends Component {
 	state = {
-		
 		degree: '',
 		current: '',
 		drescription: '',
-		school:'',
-		fieldofstudy:'',
-      	from:'',
-      	to:'',
- 
+		school: '',
+		fieldofstudy: '',
+		from: '',
+		to: '',
 	};
 
 	componentWillMount() {
@@ -41,11 +49,11 @@ class Edu extends Component {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
 	};
 	onCheck = (e) => {
-		this.setState({ ...this.state, isCurrent: e.target.checked });
+		this.setState({ ...this.state, current: e.target.checked });
 	};
 	onSubmit = (e) => {
 		e.preventDefault();
-		// this.props.editprofile(this.state);
+		this.props.addedu(this.state);
 		console.log(this.state);
 	};
 

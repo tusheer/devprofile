@@ -50,51 +50,35 @@ app.post('/', auth, async (req, res) => {
 	}
 });
 
-app.post('/addedu', auth, async (req,res)=>{
-	const  {title,
-	company,
-	location,
-	from,
-	to,
-	current,
-	description
-  } = req.body;
+app.post('/addedu', auth, async (req, res) => {
+	const { school, degree, fieldofstudy, from, to, current, description } = req.body;
 
+	const newEdu = {
+		school,
+		degree,
+		fieldofstudy,
+		from,
+		to,
+		current,
+		description,
+	};
 
-  const newEdu = {
-	school,
-	degree,
-	fieldofstudy,
-	from,
-	to,
-	current,
-	description
-  };
+	try {
+		const profile = await Profile.findOne({ userId: req.body.user });
 
-  try {
-	const profile = await Profile.findOne({ userId: req.body.user });
+		profile.education.unshift(newEdu);
 
-	profile.education.unshift(newEdu);
+		await profile.save();
+		console.log(profile);
+		res.json(profile);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
 
-	await profile.save();
-
-	res.json(profile);
-  } catch (err) {
-	console.error(err.message);
-	res.status(500).send('Server Error');
-  }
-})
-
-app.post('/addexp',auth, async (req,res)=>{
-		const {
-		company,
-		jobTitle,
-		location,
-		fromDate,
-		toDate,
-		isCurrent,
-		drescription,
-	} = req.body;
+app.post('/addexp', auth, async (req, res) => {
+	const { company, jobTitle, location, fromDate, toDate, isCurrent, drescription } = req.body;
 	const newExp = {
 		company,
 		jobTitle,
@@ -103,23 +87,20 @@ app.post('/addexp',auth, async (req,res)=>{
 		toDate,
 		isCurrent,
 		drescription,
-	}
+	};
 	try {
 		const profile = await Profile.findOne({ userId: req.body.user });
-	
+
 		profile.education.unshift(newExp);
-	
+
 		await profile.save();
-	
+
 		res.json(profile);
-	  } catch (err) {
+	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server Error');
-	  }
-
-
-})
-
+	}
+});
 
 module.exports = app;
 app.post('/post', (req, res) => {
