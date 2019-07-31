@@ -28,7 +28,7 @@ class Edu extends Component {
 	state = {
 		degree: '',
 		current: '',
-		drescription: '',
+		description: '',
 		school: '',
 		fieldofstudy: '',
 		from: '',
@@ -54,11 +54,10 @@ class Edu extends Component {
 	onSubmit = (e) => {
 		e.preventDefault();
 		this.props.addedu(this.state);
-		console.log(this.state);
 	};
 
 	render() {
-		const { school, degree, fieldofstudy, from, to, current, drescription } = this.state;
+		const { school, degree, fieldofstudy, from, to, current, description } = this.state;
 
 		return (
 			<div className="education_body padding_top">
@@ -129,8 +128,8 @@ class Edu extends Component {
 						<div className="form-group mb-1">
 							<label>Program description</label>
 							<textarea
-								value={drescription}
-								name="drescription"
+								value={description}
+								name="description"
 								onChange={this.onChange}
 								className="form-control rounded-0"
 								id="exampleFormControlTextarea2"

@@ -44,11 +44,11 @@ const profileSchema = new userSchema({
 			location: {
 				type: String,
 			},
-			fromData: {
+			fromDate: {
 				type: Date,
 				required: true,
 			},
-			toData: {
+			toDate: {
 				type: Date,
 			},
 			isCurrent: {

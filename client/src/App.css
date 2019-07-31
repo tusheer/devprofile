@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -32,11 +33,11 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .wellcome .head {
@@ -80,7 +81,7 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
 
 .wellcome .button button {
@@ -110,14 +111,14 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 43px 0;
   background: #020024;
   background: linear-gradient(324deg, #020024 0%, #ee2e68 100%);
@@ -144,8 +145,8 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -160,14 +161,14 @@
   width: 100%;
   height: 100%;
   -o-object-fit: fill;
-     object-fit: fill;
+  object-fit: fill;
 }
 
 .devprofile .profile .single_profile .image .image_wraper img {
   height: 100%;
   width: 100%;
   -o-object-fit: fill;
-     object-fit: fill;
+  object-fit: fill;
 }
 
 .devprofile .profile .single_profile .profile_details {
@@ -177,34 +178,35 @@
   padding-bottom: 5px;
 }
 
-.devprofile .profile .single_profile .profile_details .skill {
+.profile .single_profile .profile_details .skill {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 126px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
 }
 
-.devprofile .profile .single_profile .profile_details .skill span {
+.profile .single_profile .profile_details .skill span {
   background-color: black;
   color: white;
   border-radius: 3px;
   margin: 1px;
   padding: 1px 3px;
   font-family: serif;
+  /* display: inline-block; */
 }
 
-.devprofile .profile .single_profile .profile_details .skill a {
+.profile .single_profile .profile_details .skill a {
   text-decoration: none;
 }
 
-.devprofile .profile .single_profile .profile_details .skill a button {
+.profile .single_profile .profile_details .skill a button {
   display: block;
   clear: both;
   background: #ee2e68;
@@ -228,7 +230,7 @@
   height: 100%;
   width: 80%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   float: right;
 }
 
@@ -238,12 +240,12 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   padding-bottom: 40px;
   font-family: 'PT Sans Narrow';
 }
@@ -256,7 +258,7 @@
 
 .header .row .icon i:hover {
   -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .body {
@@ -270,7 +272,7 @@
   border: 1px solid #ddd;
   margin: 15px 0;
   -webkit-box-shadow: -2px 2px 2px -3px #000000;
-          box-shadow: -2px 2px 2px -3px #000000;
+  box-shadow: -2px 2px 2px -3px #000000;
 }
 
 .body .left .bio h3 {
@@ -295,7 +297,7 @@
   margin-bottom: 20px;
   background-color: white;
   -webkit-box-shadow: -2px 2px 2px -3px #000000;
-          box-shadow: -2px 2px 2px -3px #000000;
+  box-shadow: -2px 2px 2px -3px #000000;
   border: 1px solid #ddd;
 }
 
@@ -323,13 +325,14 @@
   margin: 1px;
   padding: 1px 3px;
   font-family: serif;
+  display: inline-block;
 }
 
 .body .left .education {
   margin-bottom: 15px;
   background-color: white;
   -webkit-box-shadow: -2px 2px 2px -3px #000000;
-          box-shadow: -2px 2px 2px -3px #000000;
+  box-shadow: -2px 2px 2px -3px #000000;
   border: 1px solid #ddd;
 }
 
@@ -369,7 +372,7 @@
   border: 1px solid #ddd;
   margin: 15px 0;
   -webkit-box-shadow: -2px 2px 2px -3px #000000;
-          box-shadow: -2px 2px 2px -3px #000000;
+  box-shadow: -2px 2px 2px -3px #000000;
 }
 
 .body .right .experience h3 {
@@ -405,7 +408,7 @@
 .menu {
   background: white;
   -webkit-box-shadow: 0px 3px 4px -1px rgba(0, 0, 0, 0.75);
-          box-shadow: 0px 3px 4px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 4px -1px rgba(0, 0, 0, 0.75);
   z-index: 10000;
   position: fixed;
   width: 100%;
@@ -418,14 +421,14 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   cursor: default;
 }
 
@@ -435,11 +438,11 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .menu nav .left_side .brand_name {
@@ -478,11 +481,11 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .menu nav .right_side p {
@@ -523,7 +526,7 @@
 
 .login .login_form {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0px 160px;
 }
 
@@ -548,7 +551,7 @@
 
 .signup .signup_form {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0px 160px;
 }
 
@@ -587,15 +590,62 @@
 }
 
 @media (max-width: 800px) {
+
   /* Target devices narrower than 768px. */
   .profile {
     padding: 20px 0;
   }
+
   .profile .single_profile .image {
     width: 45%;
   }
+
   .profile .profile_details {
     width: 55%;
   }
 }
-/*# sourceMappingURL=App.css.map */
+
+.loderwraper {
+
+
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loder {
+
+
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #ee2e68;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

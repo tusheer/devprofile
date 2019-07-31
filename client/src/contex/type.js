@@ -5,3 +5,4 @@ export const LOGOUT = 'LOGOUT';
 export const EDITPRO = 'EDITPRO';
 export const ADDEDU = 'ADDEDU';
 export const ADDEXP = 'ADDEXP';
+export const GETPRO = 'GETPRO';

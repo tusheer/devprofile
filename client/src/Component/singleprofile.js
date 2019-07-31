@@ -1,44 +1,35 @@
 import React, { Component, useContext } from 'react';
 import authContext from '../contex/auth/authContext';
-import profileContext from '../contex/profile/profileContext';
-
-const Personal = () => {
+import axios from 'axios';
+const SingleProfile = (props) => {
 	const contextAuth = useContext(authContext);
-	const profileAuth = useContext(profileContext);
 	const { user, token, isAuthenticated, userLoder } = contextAuth;
-	const { getPro, data } = profileAuth;
+	const id = props.match.params.id;
 	return (
 		<div>
-			<Profile
-				data={data}
-				getPro={getPro}
-				user={user}
-				token={token}
-				isAuth={isAuthenticated}
-				userLoder={userLoder}
-			/>
+			<Profile id={id} user={user} token={token} isAuth={isAuthenticated} userLoder={userLoder} />
 		</div>
 	);
 };
 
 class Profile extends Component {
+	state = {
+		data: null,
+	};
 	componentWillMount() {
 		if (this.props.token && !this.props.user) {
 			this.props.userLoder();
-		} else {
-			if (!this.props.isAuth) {
-				this.props.replace();
-			}
-			this.props.getPro();
 		}
 	}
-	componentDidMount() {
-		this.props.getPro();
+	async componentDidMount() {
+		const res = await axios.get(`/profile/profile/${this.props.id}`);
+
+		this.setState({ data: res.data });
 	}
 
 	render() {
 		// const { skill, name, company, companyWebsite, position, location, experience, education } = this.props.data;
-		return this.props.data ? <BodyWraper data={this.props.data} /> : <Loder />;
+		return this.state.data ? <BodyWraper data={this.state.data} /> : <Loder />;
 	}
 }
 
@@ -183,4 +174,4 @@ function Body(props) {
 	);
 }
 
-export default Personal;
+export default SingleProfile;

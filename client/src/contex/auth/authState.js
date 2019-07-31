@@ -29,6 +29,7 @@ const AuthState = (props) => {
 				type: USER,
 				payload: res.data,
 			});
+			return res.data;
 		} catch (error) {}
 	};
 

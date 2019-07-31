@@ -1,15 +1,33 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import profileContext from './profileContext';
-import { EDITPRO, ADDEDU, ADDEXP } from '../type';
+import { EDITPRO, ADDEDU, ADDEXP, GETPRO } from '../type';
 import profileReducer from './profileReducer';
 
 export default function ProfileState(props) {
 	const inisialState = {
 		isEdited: false,
+		data: null,
 	};
 
 	const [ state, dispatch ] = useReducer(profileReducer, inisialState);
+	const getPro = async () => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.get('/profile', config);
+			dispatch({
+				type: GETPRO,
+				payload: res.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const exp = async (formdata) => {
 		const config = {
 			headers: {
@@ -67,6 +85,7 @@ export default function ProfileState(props) {
 				editprofile,
 				addedu,
 				exp,
+				getPro,
 			}}
 		>
 			{props.children}

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Menu from './Component/menu';
 import Wellcome from './Component/wellcome';
+import SingleProfile from './Component/singleprofile';
 import Devprofile from './Component/devprofile';
 import Personal from './Component/personal';
 import Login from './Component/login';
@@ -30,6 +31,7 @@ function App() {
 					<Route path="/editprofile" component={Editprofile} />
 					<Route path="/editexperience" component={Experience} />
 					<Route path="/editeducation" component={Education} />
+					<Route path="/profile/:id" component={SingleProfile} />
 				</Switch>
 			</Router>
 		</AuthState>
