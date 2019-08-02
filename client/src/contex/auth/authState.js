@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducers';
@@ -15,6 +15,8 @@ const AuthState = (props) => {
 		user: null,
 		error: null,
 	};
+
+	const [ url, setUrl ] = useState('');
 
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 	const userLoder = async () => {
@@ -73,6 +75,10 @@ const AuthState = (props) => {
 		});
 	};
 
+	const seturl = (url) => {
+		setUrl(url);
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -81,6 +87,8 @@ const AuthState = (props) => {
 				log_in,
 				userLoder,
 				logout,
+				url,
+				seturl,
 			}}
 		>
 			<ProfileState>{props.children}</ProfileState>

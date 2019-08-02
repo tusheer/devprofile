@@ -3,7 +3,7 @@ import authContext from '../contex/auth/authContext';
 
 const Signup = (props) => {
 	const context = useContext(authContext);
-	const { register, isAuthenticated } = context;
+	const { register, isAuthenticated, seturl } = context;
 	const [ form, setFrom ] = useState({
 		name: '',
 		email: '',
@@ -16,6 +16,9 @@ const Signup = (props) => {
 			props.history.push('/');
 		}
 	});
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
 
 	const onChange = (e) => setFrom({ ...form, [e.target.name]: e.target.value });
 	const onSubmit = (e) => {

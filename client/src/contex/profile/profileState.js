@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import profileContext from './profileContext';
-import { EDITPRO, ADDEDU, ADDEXP, GETPRO } from '../type';
+import { EDITPRO, ADDEDU, ADDEXP, GETPRO, DELEXP, DELEDU } from '../type';
 import profileReducer from './profileReducer';
 
 export default function ProfileState(props) {
@@ -37,7 +37,7 @@ export default function ProfileState(props) {
 
 		try {
 			const res = await axios.post('/profile/addexp', { ...formdata }, config);
-			console.log(res.data);
+
 			dispatch({
 				type: ADDEXP,
 				payload: res.data,
@@ -53,7 +53,7 @@ export default function ProfileState(props) {
 
 		try {
 			const res = await axios.post('/profile/', { ...formdata }, config);
-			console.log(res.data);
+
 			dispatch({
 				type: EDITPRO,
 				payload: res.data,
@@ -70,9 +70,41 @@ export default function ProfileState(props) {
 
 		try {
 			const res = await axios.post('/profile/addedu', { ...formdata }, config);
-			console.log(res.data);
+
 			dispatch({
 				type: ADDEDU,
+				payload: res.data,
+			});
+		} catch (error) {}
+	};
+
+	const delexp = async (id) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.delete(`/profile/exp/${id}`, config);
+
+			dispatch({
+				type: DELEXP,
+				payload: res.data,
+			});
+		} catch (error) {}
+	};
+
+	const deledu = async (id) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.delete(`/profile/edu/${id}`, config);
+
+			dispatch({
+				type: DELEDU,
 				payload: res.data,
 			});
 		} catch (error) {}
@@ -86,6 +118,8 @@ export default function ProfileState(props) {
 				addedu,
 				exp,
 				getPro,
+				deledu,
+				delexp,
 			}}
 		>
 			{props.children}

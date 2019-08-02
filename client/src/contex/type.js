@@ -6,3 +6,5 @@ export const EDITPRO = 'EDITPRO';
 export const ADDEDU = 'ADDEDU';
 export const ADDEXP = 'ADDEXP';
 export const GETPRO = 'GETPRO';
+export const DELEXP = 'DELEXP';
+export const DELEDU = 'DELEDU';

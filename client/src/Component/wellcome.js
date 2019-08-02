@@ -1,10 +1,13 @@
-import React, { useContext, Component } from 'react';
+import React, { useContext, Component, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import authContext from '../contex/auth/authContext';
 
-const Wellcome = () => {
+const Wellcome = (props) => {
 	const context = useContext(authContext);
-	const { isAuthenticated, userLoder, token } = context;
+	const { isAuthenticated, userLoder, token, seturl } = context;
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
 
 	return (
 		<div className="wellcome padding_top">

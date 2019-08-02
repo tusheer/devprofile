@@ -1,19 +1,39 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect, useState } from 'react';
 
 import authContext from '../contex/auth/authContext';
 import profileContext from '../contex/profile/profileContext';
+import experience from '../validation/experience';
 
 const Experience = (props) => {
 	const contextAuth = useContext(authContext);
 	const profileAuth = useContext(profileContext);
-	const { user, token, isAuthenticated, userLoder } = contextAuth;
+	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
 	const { exp } = profileAuth;
 	const replace = () => {
-		props.history.push('/');
+		props.history.push('/login');
 	};
+	const push = () => {
+		props.history.push('/dashboard');
+	};
+
+	useEffect(() => seturl(props.match.path), []);
+	const [ error, setError ] = useState(false);
+
+	const errorHandle = (data) => setError(data);
 	return (
 		<div>
-			<Exp exp={exp} userLoder={userLoder} user={user} token={token} isAuth={isAuthenticated} replace={replace} />
+			<Exp
+				push={push}
+				exp={exp}
+				userLoder={userLoder}
+				user={user}
+				token={token}
+				isAuth={isAuthenticated}
+				replace={replace}
+				error={error}
+				errorHandle={errorHandle}
+				setError={setError}
+			/>
 		</div>
 	);
 };
@@ -41,14 +61,20 @@ class Exp extends Component {
 
 	onChange = (e) => {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
+		this.props.setError(([ `${e.target.name}Error` ]: false));
 	};
 	onCheck = (e) => {
 		this.setState({ ...this.state, isCurrent: e.target.checked });
 	};
 	onSubmit = (e) => {
 		e.preventDefault();
-		this.props.exp(this.state);
-		console.log(this.state);
+		const { errors, isValid } = experience(this.state);
+		if (!isValid) {
+			this.props.errorHandle(errors);
+		} else {
+			this.props.addedu(this.state);
+			this.props.push();
+		}
 	};
 
 	render() {
@@ -67,10 +93,14 @@ class Exp extends Component {
 								name="company"
 								value={this.state.company}
 								type="text"
-								className="form-control"
+								className={this.props.error.companyError ? 'form-control  is-invalid' : 'form-control'}
 								placeholder="Company name"
 							/>
+							{!this.props.error.companyError ? null : (
+								<div class="invalid-feedback">{this.props.error.companyError}</div>
+							)}
 						</div>
+
 						<div className="form-group mb-1">
 							<label>Job title</label>
 							<input
@@ -78,9 +108,12 @@ class Exp extends Component {
 								name="jobTitle"
 								value={this.state.jobTitle}
 								type="text"
-								className="form-control"
+								className={this.props.error.jobTitleError ? 'form-control  is-invalid' : 'form-control'}
 								placeholder="Enter your job title"
 							/>
+							{!this.props.error.jobTitleError ? null : (
+								<div class="invalid-feedback">{this.props.error.jobTitleError}</div>
+							)}
 						</div>
 						<div className="form-group mb-1">
 							<label>Location</label>
@@ -100,9 +133,12 @@ class Exp extends Component {
 								name="fromDate"
 								value={this.state.fromDate}
 								type="date"
-								className="form-control"
+								className={this.props.error.fromDateError ? 'form-control  is-invalid' : 'form-control'}
 								placeholder="Job location"
 							/>
+							{!this.props.error.fromDateError ? null : (
+								<div class="invalid-feedback">{this.props.error.fromDateError}</div>
+							)}
 						</div>
 						<div className="form-group mb-1">
 							<label>To date</label>

@@ -1,18 +1,24 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import profileContext from '../contex/profile/profileContext';
 import authContext from '../contex/auth/authContext';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
 	const contextProfile = useContext(profileContext);
 	const contextAuth = useContext(authContext);
-	const { getPro, data } = contextProfile;
-	const { userLoder, token, user, isAuthenticated } = contextAuth;
-	const replace = (props) => {
-		props.history.push('/');
+	const { getPro, data, delexp, deledu } = contextProfile;
+	const { userLoder, token, user, isAuthenticated, seturl } = contextAuth;
+	const replace = () => {
+		props.history.push('/login');
 	};
+
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
 	return (
 		<Dashbody
+			deledu={deledu}
+			delexp={delexp}
 			getPro={getPro}
 			userLoder={userLoder}
 			token={token}
@@ -96,7 +102,12 @@ class Dashbody extends Component {
 														{exp.fromDate + ' '}-{' ' + exp.toDate}
 													</td>
 													<td>
-														<button className="btn btn-danger">Delete</button>
+														<button
+															onClick={() => this.props.delexp(exp._id)}
+															className="btn btn-danger"
+														>
+															Delete
+														</button>
 													</td>
 												</tr>
 											</React.Fragment>
@@ -127,7 +138,12 @@ class Dashbody extends Component {
 														{edu.from + ' '}-{' ' + edu.to}
 													</td>
 													<td>
-														<button className="btn btn-danger">Delete</button>
+														<button
+															onClick={() => this.props.deledu(edu._id)}
+															className="btn btn-danger"
+														>
+															Delete
+														</button>
 													</td>
 												</tr>
 											</React.Fragment>

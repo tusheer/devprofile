@@ -74,7 +74,7 @@ app.post('/login', async (req, res) => {
 					userId: isReg._id.toString(),
 				},
 				'developedbytusher',
-				{ expiresIn: '4h' },
+				{ expiresIn: '30d' },
 			);
 			res.status(201).send({
 				token: token,

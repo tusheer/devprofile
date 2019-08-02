@@ -1,15 +1,24 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect, useState } from 'react';
 import profileContext from '../contex/profile/profileContext';
 import authContext from '../contex/auth/authContext';
-
+import profile from '../validation/profile';
 const Editprofile = (props) => {
 	const contextProfile = useContext(profileContext);
 	const contextAuth = useContext(authContext);
 	const { editprofile } = contextProfile;
-	const { userLoder, token, user, isAuthenticated } = contextAuth;
+	const { userLoder, token, user, isAuthenticated, seturl } = contextAuth;
 	const replace = () => {
-		props.history.push('/');
+		props.history.push('/login');
 	};
+	const push = () => {
+		props.history.push('/dashboard');
+	};
+
+	useEffect(() => seturl(props.match.path), []);
+
+	const [ error, setError ] = useState(false);
+
+	const errorHandle = (data) => setError(data);
 
 	return (
 		<Profile
@@ -19,6 +28,10 @@ const Editprofile = (props) => {
 			user={user}
 			replace={replace}
 			isAuthenticated={isAuthenticated}
+			push={push}
+			error={error}
+			errorHandle={errorHandle}
+			setError={setError}
 		/>
 	);
 };
@@ -45,10 +58,17 @@ class Profile extends Component {
 	}
 	onChange = (e) => {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
+		this.props.setError(([ `${e.target.name}Error` ]: false));
 	};
 	onSubmit = (e) => {
 		e.preventDefault();
-		this.props.editprofile(this.state);
+		const { errors, isValid } = profile(this.state);
+		if (!isValid) {
+			this.props.errorHandle(errors);
+		} else {
+			this.props.addedu(this.state);
+			this.props.push();
+		}
 	};
 	render() {
 		return (
@@ -66,12 +86,16 @@ class Profile extends Component {
 									value={this.state.name}
 									name="name"
 									type="text"
-									className="form-control"
+									className={this.props.error.nameError ? 'form-control  is-invalid' : 'form-control'}
 									placeholder="Enter your name"
 								/>
-								<small id="emailHelp" className="form-text text-muted">
-									A unique handle for your profle URL.Your ful name, company name,nick Name.
-								</small>
+								{!this.props.error.nameError ? (
+									<small id="emailHelp" className="form-text text-muted">
+										A unique handle for your profle URL.Your ful name, company name,nick Name.
+									</small>
+								) : (
+									<div class="invalid-feedback">{this.props.error.nameError}</div>
+								)}
 							</div>
 
 							<div className="form-group mb-1">
@@ -80,7 +104,9 @@ class Profile extends Component {
 									onChange={this.onChange}
 									name="position"
 									value={this.state.postion}
-									className="form-control"
+									className={
+										this.props.error.positionError ? 'form-control  is-invalid' : 'form-control'
+									}
 									id="sel1"
 								>
 									<option>Senior Developar</option>
@@ -91,6 +117,9 @@ class Profile extends Component {
 									<option>FullStack Developar</option>
 									<option>Othes</option>
 								</select>
+								{!this.props.error.positionError ? null : (
+									<div class="invalid-feedback">{this.props.error.positionError}</div>
+								)}
 							</div>
 							<div className="form-group mb-1">
 								<label>Company Name</label>
@@ -140,12 +169,19 @@ class Profile extends Component {
 									name="skill"
 									value={this.state.skill}
 									type="text"
-									className="form-control"
+									className={
+										this.props.error.skillError ? 'form-control  is-invalid' : 'form-control'
+									}
 									placeholder="html,css,php,React js"
 								/>
-								<small className="form-text text-muted">
-									Please use comma separeted values (eg. html,css,javascript)
-								</small>
+
+								{!this.props.error.skillError ? (
+									<small className="form-text text-muted">
+										Please use comma separeted values (eg. html,css,javascript)
+									</small>
+								) : (
+									<div class="invalid-feedback">{this.props.error.skillError}</div>
+								)}
 							</div>
 							<div className="form-group mb-1">
 								<label>Bio</label>

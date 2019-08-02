@@ -3,12 +3,15 @@ import authContext from '../contex/auth/authContext';
 
 const Login = (props) => {
 	const context = useContext(authContext);
-	const { log_in, isAuthenticated } = context;
+	const { log_in, isAuthenticated, seturl } = context;
 	useEffect(() => {
 		if (isAuthenticated) {
 			props.history.push('/');
 		}
 	});
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
 
 	const [ form, setForm ] = useState({
 		email: '',

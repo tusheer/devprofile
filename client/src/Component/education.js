@@ -1,15 +1,29 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect, useState } from 'react';
 import authContext from '../contex/auth/authContext';
 import profileContext from '../contex/profile/profileContext';
+import education from '../validation/education';
+// import isEmpty from '../validation/is-empty';
 
 const Education = (props) => {
 	const contextAuth = useContext(authContext);
 	const contextPro = useContext(profileContext);
-	const { user, token, isAuthenticated, userLoder } = contextAuth;
+	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
 	const { addedu } = contextPro;
 	const replace = () => {
 		props.history.push('/');
 	};
+	const push = () => {
+		props.history.push('/dashboard');
+	};
+
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
+
+	const [ error, setError ] = useState(false);
+
+	const errorHandle = (data) => setError(data);
+
 	return (
 		<div>
 			<Edu
@@ -19,6 +33,10 @@ const Education = (props) => {
 				token={token}
 				isAuth={isAuthenticated}
 				replace={replace}
+				push={push}
+				error={error}
+				errorHandle={errorHandle}
+				setError={setError}
 			/>
 		</div>
 	);
@@ -47,13 +65,20 @@ class Edu extends Component {
 
 	onChange = (e) => {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
+		this.props.setError(([ `${e.target.name}Error` ]: false));
 	};
 	onCheck = (e) => {
 		this.setState({ ...this.state, current: e.target.checked });
 	};
 	onSubmit = (e) => {
 		e.preventDefault();
-		this.props.addedu(this.state);
+		const { errors, isValid } = education(this.state);
+		if (!isValid) {
+			this.props.errorHandle(errors);
+		} else {
+			this.props.addedu(this.state);
+			this.props.push();
+		}
 	};
 
 	render() {
@@ -67,16 +92,19 @@ class Edu extends Component {
 				</div>
 				<div className="container">
 					<form className="form_wraper" onSubmit={this.onSubmit}>
-						<div className="form-group mb-1">
+						<div className="form-group mb-1 ">
 							<label>Institute </label>
 							<input
 								value={school}
 								name="school"
 								onChange={this.onChange}
 								type="text"
-								className="form-control"
 								placeholder="Enter institute name"
+								className={this.props.error.schoolError ? 'form-control  is-invalid' : 'form-control'}
 							/>
+							{!this.props.error.schoolError ? null : (
+								<div class="invalid-feedback">{this.props.error.schoolError}</div>
+							)}
 						</div>
 						<div className="form-group mb-1">
 							<label>Degree</label>
@@ -85,9 +113,12 @@ class Edu extends Component {
 								name="degree"
 								onChange={this.onChange}
 								type="text"
-								className="form-control"
+								className={this.props.error.degreeError ? ' is-invalid form-control' : 'form-control'}
 								placeholder="Degree or certification"
 							/>
+							{!this.props.error.degreeError ? null : (
+								<div className="invalid-feedback">{this.props.error.degreeError}</div>
+							)}
 						</div>
 						<div className="form-group mb-1">
 							<label>Field of study</label>
@@ -96,8 +127,13 @@ class Edu extends Component {
 								name="fieldofstudy"
 								onChange={this.onChange}
 								type="text"
-								className="form-control"
+								className={
+									this.props.error.fieldofstudyError ? ' is-invalid form-control' : 'form-control'
+								}
 							/>
+							{!this.props.error.fieldofstudyError ? null : (
+								<div className=" invalid-feedback">{this.props.error.fieldofstudyError}</div>
+							)}
 						</div>
 						<div className="form-group mb-1">
 							<label>From date</label>
@@ -106,20 +142,14 @@ class Edu extends Component {
 								name="from"
 								onChange={this.onChange}
 								type="date"
-								className="form-control"
+								className={this.props.error.fromError ? ' is-invalid form-control' : 'form-control'}
 								placeholder="Job location"
 							/>
+							<div className=" invalid-feedback">{this.props.error.fromError}</div>
 						</div>
 						<div className="form-group mb-1">
 							<label>To date</label>
-							<input
-								value={to}
-								name="to"
-								onChange={this.onChange}
-								type="date"
-								className="form-control"
-								placeholder="Job location"
-							/>
+							<input value={to} name="to" onChange={this.onChange} className="form-control" type="date" />
 						</div>
 						<div className="form-group mb-1 d-flex align-items-center">
 							<input value={current} name="current" onChange={this.onCheck} type="checkbox" />
@@ -131,7 +161,7 @@ class Edu extends Component {
 								value={description}
 								name="description"
 								onChange={this.onChange}
-								className="form-control rounded-0"
+								className="form-control"
 								id="exampleFormControlTextarea2"
 								rows="3"
 							/>

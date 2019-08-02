@@ -1,16 +1,21 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import authContext from '../contex/auth/authContext';
 import axios from 'axios';
 
-const Devprofile = () => {
+const Devprofile = (props) => {
 	const contextAuth = useContext(authContext);
 
-	const { userLoder, token, user, isAuthenticated } = contextAuth;
+	const { userLoder, token, user, isAuthenticated, seturl } = contextAuth;
 	const replace = (props) => {
 		props.history.push('/');
 	};
+
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
+
 	return <Dev userLoder={userLoder} token={token} user={user} replace={replace} isAuthenticated={isAuthenticated} />;
 };
 

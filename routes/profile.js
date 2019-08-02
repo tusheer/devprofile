@@ -25,9 +25,11 @@ app.get('/profile/:id', async (req, res) => {
 app.delete('/exp/:id', auth, async (req, res) => {
 	const id = req.params.id;
 	try {
-		const foundProfile = await Profile.findOne({ user: req.user.id });
+		const foundProfile = await Profile.findOne({ userId: req.body.user });
 		const expIds = foundProfile.experience.map((exp) => exp._id.toString());
-		// if i dont add .toString() it returns this weird mongoose coreArray and the ids are somehow objects and it still deletes anyway even if you put /experience/5
+		// if i dont add .toString() it returns this weird mongoose coreArray and the
+		// ids are somehow objects and it still deletes anyway even if you put
+		// /experience/5
 		const removeIndex = expIds.indexOf(id);
 		if (removeIndex === -1) {
 			return res.status(500).json({ msg: 'Server error' });
@@ -35,6 +37,32 @@ app.delete('/exp/:id', auth, async (req, res) => {
 			// theses console logs helped me figure it out
 
 			foundProfile.experience.splice(removeIndex, 1);
+			await foundProfile.save();
+			return res.status(200).json(foundProfile);
+		}
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ msg: 'Server error' });
+	}
+});
+
+//education delete
+
+app.delete('/edu/:id', auth, async (req, res) => {
+	const id = req.params.id;
+	try {
+		const foundProfile = await Profile.findOne({ userId: req.body.user });
+		const expIds = foundProfile.education.map((edu) => edu._id.toString());
+		// if i dont add .toString() it returns this weird mongoose coreArray and the
+		// ids are somehow objects and it still deletes anyway even if you put
+		// /experience/5
+		const removeIndex = expIds.indexOf(id);
+		if (removeIndex === -1) {
+			return res.status(500).json({ msg: 'Server error' });
+		} else {
+			// theses console logs helped me figure it out
+
+			foundProfile.education.splice(removeIndex, 1);
 			await foundProfile.save();
 			return res.status(200).json(foundProfile);
 		}
@@ -157,5 +185,7 @@ app.post('/addexp', auth, async (req, res) => {
 
 module.exports = app;
 app.post('/post', (req, res) => {
-	res.send({ ...req.body });
+	res.send({
+		...req.body,
+	});
 });

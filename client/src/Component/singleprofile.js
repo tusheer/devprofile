@@ -1,10 +1,15 @@
-import React, { Component, useContext } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import authContext from '../contex/auth/authContext';
 import axios from 'axios';
 const SingleProfile = (props) => {
 	const contextAuth = useContext(authContext);
-	const { user, token, isAuthenticated, userLoder } = contextAuth;
+	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
 	const id = props.match.params.id;
+
+	useEffect(() => {
+		seturl(props.match.path);
+	}, []);
+
 	return (
 		<div>
 			<Profile id={id} user={user} token={token} isAuth={isAuthenticated} userLoder={userLoder} />
