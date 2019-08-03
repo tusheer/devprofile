@@ -14,6 +14,7 @@ const Devprofile = (props) => {
 
 	useEffect(() => {
 		seturl(props.match.path);
+		// eslint-disable-next-line
 	}, []);
 
 	return <Dev userLoder={userLoder} token={token} user={user} replace={replace} isAuthenticated={isAuthenticated} />;

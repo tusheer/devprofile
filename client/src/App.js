@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 // import './App.css';
-import './Re.css';
+import './Re.scss';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';

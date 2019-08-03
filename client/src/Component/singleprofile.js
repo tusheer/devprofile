@@ -1,6 +1,8 @@
 import React, { Component, useContext, useEffect } from 'react';
+import SinglePost from './singlePost'
 import authContext from '../contex/auth/authContext';
 import axios from 'axios';
+import svgWriting from './svg/writing.svg'
 const SingleProfile = (props) => {
 	const contextAuth = useContext(authContext);
 	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
@@ -34,7 +36,7 @@ class Profile extends Component {
 
 	render() {
 		// const { skill, name, company, companyWebsite, position, location, experience, education } = this.props.data;
-		return this.state.data ? <BodyWraper data={this.state.data} /> : <Loder />;
+		return this.state.data ? <BodyWraper user={this.state.data.name} data={this.state.data} /> : <Loder />;
 	}
 }
 
@@ -48,10 +50,10 @@ function Loder() {
 
 function BodyWraper(props) {
 	return (
-		<div>
+		<div className='devprofile'>
 			<div className="header container-fluid">
 				<div className="row">
-					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper">
+					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper2">
 						<img
 							src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
 							alt="Profile"
@@ -74,6 +76,7 @@ function BodyWraper(props) {
 				experience={props.data.experience}
 				education={props.data.education}
 				companyWebsite={props.data.companyWebsite}
+				user={props.user}
 			/>
 		</div>
 	);
@@ -169,7 +172,14 @@ function Body(props) {
 
 						<div className="post">
 							<div className="post_header">
-								<h3>Post</h3>
+								<h3 className='post_icon m-0'>
+							
+									<img alt="post" height="28px" src={svgWriting} /> {props.user.split(' ')[0]+ "\'s"} post
+								</h3>
+								<div className="post_wraper2">
+									<SinglePost />
+							
+								</div>
 							</div>
 						</div>
 					</div>

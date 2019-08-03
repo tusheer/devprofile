@@ -13,7 +13,7 @@ const Editprofile = (props) => {
 	const push = () => {
 		props.history.push('/dashboard');
 	};
-
+// eslint-disable-next-line
 	useEffect(() => seturl(props.match.path), []);
 
 	const [ error, setError ] = useState(false);
@@ -196,7 +196,7 @@ class Profile extends Component {
 								<small className="form-text text-muted">Tell us about your self.</small>
 							</div>
 
-							<button type="submit" className="btn btn-primary mb-5 gradient_bg mt-1 p-6">
+							<button type="submit" className="btn btn-white btn-primary mb-5 gradient_bg mt-1 p-6">
 								Submit
 							</button>
 						</form>

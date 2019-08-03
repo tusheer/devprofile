@@ -15,6 +15,24 @@ app.get('/', auth, async (req, res) => {
 		res.send('dsfjdfkdf');
 	}
 });
+
+app.post('/image',auth,async (req,res)=>{
+	const file =  req.file;
+	if(!file){
+		res.send("File select");
+	}
+	try{
+		const user = await User.findById(req.body.user);
+		user.avatar = file.path;
+		await user.save();
+		res.send(user.avatar);
+	}catch(err){
+		res.send(err);
+	}
+	res.send(file);
+})
+
+
 app.post('/signup', async (req, res) => {
 	const name = req.body.name;
 	const email = req.body.email;
@@ -85,5 +103,8 @@ app.post('/login', async (req, res) => {
 		res.send(error);
 	}
 });
+
+
+
 
 module.exports = app;

@@ -1,13 +1,15 @@
 import React, { Component, useContext, useEffect } from 'react';
 import authContext from '../contex/auth/authContext';
 import profileContext from '../contex/profile/profileContext';
+import SinglePost from './singlePost';
+import svgWriting from './svg/writing.svg'
 
 const Personal = (props) => {
 	const contextAuth = useContext(authContext);
 	const profileAuth = useContext(profileContext);
 	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
 	const { getPro, data } = profileAuth;
-
+	// eslint-disable-next-line
 	useEffect(() => seturl(props.match.path), []);
 
 	const replace = () => {
@@ -45,7 +47,7 @@ class Profile extends Component {
 
 	render() {
 		// const { skill, name, company, companyWebsite, position, location, experience, education } = this.props.data;
-		return this.props.data ? <BodyWraper data={this.props.data} /> : <Loder />;
+		return this.props.data ? <BodyWraper user={this.props.user.name} data={this.props.data} /> : <Loder />;
 	}
 }
 
@@ -62,13 +64,20 @@ function BodyWraper(props) {
 		<div>
 			<div className="header container-fluid">
 				<div className="row">
-					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper">
-						<img
-							src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-							alt="Profile"
-						/>
-						<div>
-							<input type="file" />
+					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper ">
+						<div className="image_inner h-100   position-relative">
+							<img
+								className="img"
+								src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+								alt="Profile"
+							/>
+							<div className="image2">
+								<div className="btn  btn_image position-relative">
+									<i class="fa fa-camera d-inline-block text-white" />
+									<span className="text-center d-block">Upload your photo</span>
+									<input className="position-absolute h-100 w-100" type="file" />
+								</div>
+							</div>
 						</div>
 					</div>
 
@@ -89,6 +98,7 @@ function BodyWraper(props) {
 				experience={props.data.experience}
 				education={props.data.education}
 				companyWebsite={props.data.companyWebsite}
+				user={props.user}
 			/>
 		</div>
 	);
@@ -184,24 +194,12 @@ function Body(props) {
 
 						<div className="post">
 							<div className="post_header">
-								<div className="post_wraper">
-									<div className="single_post">
-										<div className="header_post d-flex justify-content-start align-items-center">
-											<img
-												className="rounded-circle"
-												src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-												alt=""
-												height="40px"
-												width="40px"
-											/>
-											<h5 className="m-0 ml-2">Janel Alam Tusher</h5>
-										</div>
-										<div className="post_body">
-											Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolor corrupti
-											rem at quibusdam. Ullam, accusantium nisi, ipsum odit delectus facilis
-											temporibus magnam itaque minima voluptates minus, asperiores iusto dolorem!
-										</div>
-									</div>
+								<h3 className='post_icon m-0'>
+							
+									<img alt="post" height="28px" src={svgWriting} /> {props.user.split(' ')[0]+ "\'s"} post
+								</h3>
+								<div className="post_wraper2">
+									<SinglePost />
 								</div>
 							</div>
 						</div>
