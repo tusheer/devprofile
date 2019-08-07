@@ -3,6 +3,8 @@ import React, { Component, useContext, useEffect, useState } from 'react';
 import authContext from '../contex/auth/authContext';
 import profileContext from '../contex/profile/profileContext';
 import experience from '../validation/experience';
+import svg from './svg/left-arrow.svg';
+import { Link } from 'react-router-dom';
 
 const Experience = (props) => {
 	const contextAuth = useContext(authContext);
@@ -15,7 +17,7 @@ const Experience = (props) => {
 	const push = () => {
 		props.history.push('/dashboard');
 	};
-
+	//eslint-disable-next-line
 	useEffect(() => seturl(props.match.path), []);
 	const [ error, setError ] = useState(false);
 
@@ -45,7 +47,7 @@ class Exp extends Component {
 		location: '',
 		fromDate: '',
 		toDate: '',
-		isCurrent: '',
+		isCurrent: false,
 		description: '',
 	};
 
@@ -61,7 +63,8 @@ class Exp extends Component {
 
 	onChange = (e) => {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
-		this.props.setError(([ `${e.target.name}Error` ]: false));
+		//eslint-disable-next-line
+		this.props.setError({ [`${e.target.name}Error`]: false });
 	};
 	onCheck = (e) => {
 		this.setState({ ...this.state, isCurrent: e.target.checked });
@@ -72,7 +75,7 @@ class Exp extends Component {
 		if (!isValid) {
 			this.props.errorHandle(errors);
 		} else {
-			this.props.addedu(this.state);
+			this.props.exp(this.state);
 			this.props.push();
 		}
 	};
@@ -80,6 +83,11 @@ class Exp extends Component {
 	render() {
 		return (
 			<div className="experience_body padding_top">
+				<Link to="/dashboard">
+					<button className="btn ml-4 mt-2 ">
+						<img src={svg} alt="" height="30px" width="30px" />
+					</button>
+				</Link>
 				<div>
 					<h1 className="text-center mt-3 gradient">Add Experience</h1>
 					<p className="text-center">Add any job and position that you have had in the past or current</p>

@@ -15,7 +15,7 @@ app.get('/profile/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
 		console.log(id);
-		const profile = await Profile.findById(id);
+		const profile = await Profile.findById(id).populate('userId', [ 'avatar' ]);
 		res.send(profile);
 	} catch (error) {}
 });
@@ -74,7 +74,9 @@ app.delete('/edu/:id', auth, async (req, res) => {
 
 app.get('/dev', async (req, res) => {
 	try {
-		const profiles = await Profile.find({}, [ 'skill', 'name', 'position' ]);
+		const profiles = await Profile.find({}, [ 'skill', 'name', 'position', 'userId' ]).populate('userId', [
+			'avatar',
+		]);
 		console.log(profiles);
 		res.json(profiles);
 	} catch (err) {
@@ -132,6 +134,7 @@ app.post('/', auth, async (req, res) => {
 
 app.post('/addedu', auth, async (req, res) => {
 	const { school, degree, fieldofstudy, from, to, current, description } = req.body;
+	const data = current === '' ? false : true;
 
 	const newEdu = {
 		school,
@@ -139,7 +142,7 @@ app.post('/addedu', auth, async (req, res) => {
 		fieldofstudy,
 		from,
 		to,
-		current,
+		data,
 		description,
 	};
 

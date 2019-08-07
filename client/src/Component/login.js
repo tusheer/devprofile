@@ -1,31 +1,56 @@
 import React, { useEffect, useContext, useState } from 'react';
 import authContext from '../contex/auth/authContext';
-
+import axios from 'axios';
 const Login = (props) => {
 	const context = useContext(authContext);
-	const { log_in, isAuthenticated, seturl } = context;
+	const { log_in, isAuthenticated, seturl, token, userLoder } = context;
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (isAuthenticated && token) {
 			props.history.push('/');
 		}
 	});
 	useEffect(() => {
 		seturl(props.match.path);
+		//eslint-disable-next-line
 	}, []);
 
 	const [ form, setForm ] = useState({
 		email: '',
 		password: '',
 	});
+
+	const [ error, setError ] = useState(null);
 	const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		log_in(form);
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.post('/api/users/login', form, config);
+			if (res.data) {
+				log_in(res.data);
+				userLoder();
+			}
+		} catch (err) {
+			setError(err.response.data);
+			console.log(err.response.data);
+			setTimeout(() => {
+				setError(null);
+			}, 4000);
+		}
 	};
 	const { email, password } = form;
 	return (
 		<div className="login padding_top">
+			{error && (
+				<div className="alert alert-danger" role="alert">
+					{error.err}
+				</div>
+			)}
 			<div className="login_header pt-4">
 				<h1 className="text-center">Log in</h1>
 				<p className="text-center">Log in to your DevConnector account</p>

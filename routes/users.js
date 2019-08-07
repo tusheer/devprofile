@@ -16,22 +16,20 @@ app.get('/', auth, async (req, res) => {
 	}
 });
 
-app.post('/image',auth,async (req,res)=>{
-	const file =  req.file;
-	if(!file){
-		res.send("File select");
+app.post('/image', auth, async (req, res) => {
+	const file = req.file;
+	if (!file) {
+		res.send('File select');
 	}
-	try{
+	try {
 		const user = await User.findById(req.body.user);
 		user.avatar = file.path;
 		await user.save();
 		res.send(user.avatar);
-	}catch(err){
+	} catch (err) {
 		res.send(err);
 	}
-	res.send(file);
-})
-
+});
 
 app.post('/signup', async (req, res) => {
 	const name = req.body.name;
@@ -65,7 +63,7 @@ app.post('/signup', async (req, res) => {
 					token: token,
 				});
 			} else {
-				res.status(400).json({ errr: 'Acoount already created by this email' });
+				res.status(400).json({ err: 'Acoount already created by this email' });
 			}
 		}
 	} catch (err) {}
@@ -78,13 +76,13 @@ app.post('/login', async (req, res) => {
 		const isReg = await User.findOne({ email: email });
 		console.log(isReg);
 		if (!isReg) {
-			res.status(200).json({ err: 'not found your account' });
+			res.status(400).json({ err: 'not found your account' });
 		}
 
 		const isEqual = await bcrypt.compare(password, isReg.password);
 		console.log(isEqual);
 		if (!isEqual) {
-			res.status(200).json({ err: 'Password is incorrect' });
+			res.status(400).json({ err: 'Password is incorrect' });
 		} else {
 			const token = await jwt.sign(
 				{
@@ -100,11 +98,8 @@ app.post('/login', async (req, res) => {
 			});
 		}
 	} catch (error) {
-		res.send(error);
+		res.status(400).send(error);
 	}
 });
-
-
-
 
 module.exports = app;

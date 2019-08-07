@@ -1,4 +1,4 @@
-import { SIGN_UP, LOG_IN, USER, LOGOUT } from '../type';
+import { SIGN_UP, LOG_IN, USER, LOGOUT, UPLOAD } from '../type';
 
 export default (state, action) => {
 	switch (action.type) {
@@ -32,6 +32,11 @@ export default (state, action) => {
 				isAuthenticated: false,
 				loading: false,
 				token: null,
+			};
+		case UPLOAD:
+			return {
+				...state,
+				avatar: action.payload,
 			};
 		default:
 			break;

@@ -11,24 +11,16 @@ export default function ProfileState(props) {
 	};
 
 	const [ state, dispatch ] = useReducer(profileReducer, inisialState);
-	const getPro = async () => {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-		try {
-			const res = await axios.get('/profile', config);
-			dispatch({
-				type: GETPRO,
-				payload: res.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
+
+	const getPro = (data) => {
+		dispatch({
+			type: GETPRO,
+			payload: data,
+		});
 	};
 
 	const exp = async (formdata) => {
+		console.log(formdata);
 		const config = {
 			headers: {
 				'Content-Type': 'application/json',

@@ -1,8 +1,9 @@
 import React, { Component, useContext, useEffect } from 'react';
-import SinglePost from './singlePost'
+import SinglePost from './singlePost';
 import authContext from '../contex/auth/authContext';
 import axios from 'axios';
-import svgWriting from './svg/writing.svg'
+import svgWriting from './svg/writing.svg';
+import moment from 'moment';
 const SingleProfile = (props) => {
 	const contextAuth = useContext(authContext);
 	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
@@ -10,6 +11,7 @@ const SingleProfile = (props) => {
 
 	useEffect(() => {
 		seturl(props.match.path);
+		// eslint-disable-next-line
 	}, []);
 
 	return (
@@ -22,6 +24,7 @@ const SingleProfile = (props) => {
 class Profile extends Component {
 	state = {
 		data: null,
+		post: [],
 	};
 	componentWillMount() {
 		if (this.props.token && !this.props.user) {
@@ -30,13 +33,23 @@ class Profile extends Component {
 	}
 	async componentDidMount() {
 		const res = await axios.get(`/profile/profile/${this.props.id}`);
+		const resdata = await axios.get(`/post/${this.props.id}`);
 
-		this.setState({ data: res.data });
+		this.setState({ data: res.data, post: [ ...resdata.data ] });
 	}
 
 	render() {
 		// const { skill, name, company, companyWebsite, position, location, experience, education } = this.props.data;
-		return this.state.data ? <BodyWraper user={this.state.data.name} data={this.state.data} /> : <Loder />;
+		return this.state.data ? (
+			<BodyWraper
+				user={this.state.data.name}
+				data={this.state.data}
+				post={this.state.post}
+				profile={this.props.user._id}
+			/>
+		) : (
+			<Loder />
+		);
 	}
 }
 
@@ -50,22 +63,21 @@ function Loder() {
 
 function BodyWraper(props) {
 	return (
-		<div className='devprofile'>
+		<div className="devprofile">
 			<div className="header container-fluid">
-				<div className="row">
-					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper2">
-						<img
-							src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-							alt="Profile"
-						/>
-					</div>
-					<div className="profile_details col-sm-7 col-md-8 col-lg-9">
-						<div>
-							<h1>{props.data.name}</h1>
-							<p>{props.data.position}</p>
-							<p>{props.data.location}</p>
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-5 col-md-4 col-lg-3 image_wraper2">
+							<img src={'/' + props.data.userId.avatar} alt="Profile" />
 						</div>
-						<Icon />
+						<div className="profile_details col-sm-7 col-md-8 col-lg-9">
+							<div>
+								<h1>{props.data.name}</h1>
+								<p>{props.data.position}</p>
+								<p>{props.data.location}</p>
+							</div>
+							<Icon />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -77,6 +89,8 @@ function BodyWraper(props) {
 				education={props.data.education}
 				companyWebsite={props.data.companyWebsite}
 				user={props.user}
+				profile={props.data.userId}
+				post={props.post}
 			/>
 		</div>
 	);
@@ -126,7 +140,8 @@ function Body(props) {
 											<h4>{education.school}</h4>
 
 											<p>
-												<span>{education.from}</span> - <span>{education.to}</span>
+												<span>{moment(education.from).format('MMM Do YY')}</span> -{' '}
+												<span>{moment(education.to).format('MMM Do YY')}</span>
 											</p>
 											<p>
 												<b>Degree: </b>
@@ -156,7 +171,8 @@ function Body(props) {
 										<div key={exp._id} className="single_experience">
 											<h4>{exp.company}</h4>
 											<p>
-												<span>{exp.fromDate}</span> - <span>{exp.toDate}</span>
+												<span>{moment(exp.fromDate).format('MMM Do YY')}</span> -{' '}
+												<span>{moment(exp.toDate).format('MMM Do YY')}</span>
 											</p>
 											<p>
 												<b>location: </b> <span>{exp.location}</span>
@@ -172,13 +188,30 @@ function Body(props) {
 
 						<div className="post">
 							<div className="post_header">
-								<h3 className='post_icon m-0'>
-							
-									<img alt="post" height="28px" src={svgWriting} /> {props.user.split(' ')[0]+ "\'s"} post
+								<h3 className="post_icon m-0">
+									<img alt="post" height="28px" src={svgWriting} /> {props.user.split(' ')[0] + "'s"}{' '}
+									post
 								</h3>
 								<div className="post_wraper2">
-									<SinglePost />
-							
+									{props.post.length > 0 ? (
+										<React.Fragment>
+											{props.post.map((data) => {
+												return (
+													<SinglePost
+														data={data}
+														key={data._id}
+														isliked={data.likes.map(
+															(like) => (like.user === props.profile ? false : true),
+														)}
+													/>
+												);
+											})}
+										</React.Fragment>
+									) : (
+										<div className="loderwraper">
+											<div className="loder" />
+										</div>
+									)}
 								</div>
 							</div>
 						</div>

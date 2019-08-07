@@ -1,11 +1,13 @@
 import React, { useReducer, useState } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
+
 import authReducer from './authReducers';
 import setAuthToken from './axiosSet';
-import { SIGN_UP, LOG_IN, USER, LOGOUT } from '../type';
+import { SIGN_UP, LOG_IN, USER, LOGOUT, UPLOAD } from '../type';
 
 import ProfileState from '../profile/profileState';
+import PostState from '../post/postState';
 
 const AuthState = (props) => {
 	const initialState = {
@@ -35,39 +37,18 @@ const AuthState = (props) => {
 		} catch (error) {}
 	};
 
-	const register = async (formData) => {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-		try {
-			const res = await axios.post('/api/users/signup', formData, config);
-			console.log(res.data);
-			dispatch({
-				type: SIGN_UP,
-				payload: res.data,
-			});
-			userLoder();
-		} catch (err) {
-			console.log(err);
-		}
+	const register = (formData) => {
+		dispatch({
+			type: SIGN_UP,
+			payload: formData,
+		});
 	};
 
-	const log_in = async (formData) => {
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
-		try {
-			const res = await axios.post('/api/users/login', formData, config);
-			dispatch({
-				type: LOG_IN,
-				payload: res.data,
-			});
-			userLoder();
-		} catch (error) {}
+	const log_in = (formData) => {
+		dispatch({
+			type: LOG_IN,
+			payload: formData,
+		});
 	};
 	const logout = () => {
 		dispatch({
@@ -77,6 +58,13 @@ const AuthState = (props) => {
 
 	const seturl = (url) => {
 		setUrl(url);
+	};
+
+	const upload = (data) => {
+		dispatch({
+			type: UPLOAD,
+			payload: data,
+		});
 	};
 
 	return (
@@ -89,9 +77,12 @@ const AuthState = (props) => {
 				logout,
 				url,
 				seturl,
+				upload,
 			}}
 		>
-			<ProfileState>{props.children}</ProfileState>
+			<ProfileState>
+				<PostState>{props.children}</PostState>
+			</ProfileState>
 		</AuthContext.Provider>
 	);
 };

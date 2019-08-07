@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import authContext from '../contex/auth/authContext';
-
+import axios from 'axios';
 const Signup = (props) => {
 	const context = useContext(authContext);
-	const { register, isAuthenticated, seturl } = context;
+	const { register, isAuthenticated, seturl, token, userLoder } = context;
 	const [ form, setFrom ] = useState({
 		name: '',
 		email: '',
@@ -12,24 +12,76 @@ const Signup = (props) => {
 	});
 
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (isAuthenticated && token) {
 			props.history.push('/');
 		}
 	});
 	useEffect(() => {
 		seturl(props.match.path);
+		//eslint-disable-next-line
 	}, []);
-
+	const [ error, setError ] = useState(null);
 	const onChange = (e) => setFrom({ ...form, [e.target.name]: e.target.value });
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.post('/api/users/signup', form, config);
+			if (res.data) {
+				register(res.data);
+				userLoder();
+			}
 
-		register(form);
+			userLoder();
+		} catch (err) {
+			setError({ ...err.response.data });
+			console.log(error);
+
+			setTimeout(() => {
+				setError(null);
+			}, 4000);
+		}
 	};
 	const { name, email, password, password2 } = form;
 
 	return (
 		<div className="signup padding_top">
+			{error && (
+				<React.Fragment>
+					<React.Fragment>
+						{error.password && (
+							<div className="alert alert-danger mb-0" role="alert">
+								{error.password}
+							</div>
+						)}
+					</React.Fragment>
+					<React.Fragment>
+						{error.password2 && (
+							<div className="alert alert-danger mb-0" role="alert">
+								{error.password2}
+							</div>
+						)}
+					</React.Fragment>
+					<React.Fragment>
+						{error.err && (
+							<div className="alert alert-danger mb-0" role="alert">
+								{error.err}
+							</div>
+						)}
+					</React.Fragment>
+					<React.Fragment>
+						{error.name && (
+							<div className="alert alert-danger mb-0" role="alert">
+								{error.name}
+							</div>
+						)}
+					</React.Fragment>
+				</React.Fragment>
+			)}
 			<div className="signup_header pt-4">
 				<h1 className="text-center">Sign up</h1>
 				<p className="text-center">Create your DevConnect account.</p>

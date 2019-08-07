@@ -3,6 +3,8 @@ import authContext from '../contex/auth/authContext';
 import profileContext from '../contex/profile/profileContext';
 import education from '../validation/education';
 // import isEmpty from '../validation/is-empty';
+import svg from './svg/left-arrow.svg';
+import { Link } from 'react-router-dom';
 
 const Education = (props) => {
 	const contextAuth = useContext(authContext);
@@ -45,7 +47,7 @@ const Education = (props) => {
 class Edu extends Component {
 	state = {
 		degree: '',
-		current: '',
+		current: false,
 		description: '',
 		school: '',
 		fieldofstudy: '',
@@ -65,7 +67,7 @@ class Edu extends Component {
 
 	onChange = (e) => {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
-		this.props.setError(([ `${e.target.name}Error` ]: false));
+		this.props.setError({ [`${e.target.name}Error`]: false });
 	};
 	onCheck = (e) => {
 		this.setState({ ...this.state, current: e.target.checked });
@@ -86,6 +88,11 @@ class Edu extends Component {
 
 		return (
 			<div className="education_body padding_top">
+				<Link to="/dashboard">
+					<button className="btn ml-4 mt-2 ">
+						<img src={svg} alt="" height="30px" width="30px" />
+					</button>
+				</Link>
 				<div>
 					<h1 className="text-center mt-3 gradient">Add Education</h1>
 					<p className="text-center">Add any School,University,bootcamp that you have attend.</p>

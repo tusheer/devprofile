@@ -54,10 +54,7 @@ class Dev extends Component {
 									<div className="single_profile ">
 										<div className="image">
 											<div className="image_wraper">
-												<img
-													src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-													alt=""
-												/>
+												<img src={data.userId.avatar} alt="Profile" />
 											</div>
 										</div>
 										<div className="profile_details">

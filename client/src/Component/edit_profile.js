@@ -2,6 +2,8 @@ import React, { Component, useContext, useEffect, useState } from 'react';
 import profileContext from '../contex/profile/profileContext';
 import authContext from '../contex/auth/authContext';
 import profile from '../validation/profile';
+import svg from './svg/left-arrow.svg';
+import { Link } from 'react-router-dom';
 const Editprofile = (props) => {
 	const contextProfile = useContext(profileContext);
 	const contextAuth = useContext(authContext);
@@ -11,9 +13,9 @@ const Editprofile = (props) => {
 		props.history.push('/login');
 	};
 	const push = () => {
-		props.history.push('/dashboard');
+		props.history.push('/personal');
 	};
-// eslint-disable-next-line
+	// eslint-disable-next-line
 	useEffect(() => seturl(props.match.path), []);
 
 	const [ error, setError ] = useState(false);
@@ -58,7 +60,7 @@ class Profile extends Component {
 	}
 	onChange = (e) => {
 		this.setState({ ...this.state, [e.target.name]: e.target.value });
-		this.props.setError(([ `${e.target.name}Error` ]: false));
+		this.props.setError({ [`${e.target.name}Error`]: false });
 	};
 	onSubmit = (e) => {
 		e.preventDefault();
@@ -66,7 +68,7 @@ class Profile extends Component {
 		if (!isValid) {
 			this.props.errorHandle(errors);
 		} else {
-			this.props.addedu(this.state);
+			this.props.editprofile(this.state);
 			this.props.push();
 		}
 	};
@@ -74,6 +76,11 @@ class Profile extends Component {
 		return (
 			<div>
 				<div className="edit_profile padding_top">
+					<Link to="/dashboard">
+						<button className="btn ml-4 mt-2 ">
+							<img src={svg} alt="" height="30px" width="30px" />
+						</button>
+					</Link>
 					<div>
 						<h1 className="text-center mt-3 gradient">Edit Profile</h1>
 					</div>

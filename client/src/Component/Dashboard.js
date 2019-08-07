@@ -1,8 +1,9 @@
-import React, { Component, useContext, useEffect } from 'react';
+import React, { Component, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileContext from '../contex/profile/profileContext';
 import authContext from '../contex/auth/authContext';
-
+import axios from 'axios';
+import moment from 'moment';
 const Dashboard = (props) => {
 	const contextProfile = useContext(profileContext);
 	const contextAuth = useContext(authContext);
@@ -14,18 +15,38 @@ const Dashboard = (props) => {
 
 	useEffect(() => {
 		seturl(props.match.path);
+		//eslint-disable-next-line
 	}, []);
+	const [ pro, setPro ] = useState(false);
+	const getprofile = async () => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		try {
+			const res = await axios.get('/profile', config);
+			getPro(res.data);
+			setPro(res.data);
+			console.log(res.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<Dashbody
 			deledu={deledu}
 			delexp={delexp}
-			getPro={getPro}
+			getprofile={getprofile}
 			userLoder={userLoder}
 			token={token}
 			user={user}
 			replace={replace}
 			isAuthenticated={isAuthenticated}
 			data={data}
+			pro={pro}
+			setPro={setPro}
 		/>
 	);
 };
@@ -45,11 +66,13 @@ class Dashbody extends Component {
 	}
 	componentDidMount() {
 		if (!this.props.data) {
-			this.props.getPro();
+			this.props.getprofile();
+		} else {
+			this.props.setPro(this.props.data);
 		}
 	}
 	render() {
-		const data = this.props.data;
+		const data = this.props.pro;
 		let isloding;
 		if (data) {
 			return (isloding = (
@@ -57,7 +80,7 @@ class Dashbody extends Component {
 					<div className="dashboard_header mb-3">
 						<h1 className="pt-2 text-center">Dashboard</h1>
 						<p className="text-center ">
-							Wellcome to <Link to="/personal">{this.props.data ? this.props.data.name : ' '}</Link>
+							Wellcome to <Link to="/personal">{this.props.pro ? this.props.pro.name : ' '}</Link>
 						</p>
 						<div className="edit_panel d-flex justify-content-center m-2">
 							<Link to="/editprofile">
@@ -73,7 +96,7 @@ class Dashbody extends Component {
 							</Link>
 							<Link to="/editeducation">
 								<div className="p-1 ml-1 edit">
-									<i class="fa fa-graduation-cap mr-1" />Edit Education
+									<i class="fa fa-graduation-cap mr-1" />Add Education
 								</div>
 							</Link>
 						</div>
@@ -92,27 +115,33 @@ class Dashbody extends Component {
 								</thead>
 
 								<tbody>
-									{this.props.data.experience.map((exp) => {
-										return (
-											<React.Fragment>
-												<tr>
-													<td>{exp.company}</td>
-													<td>{exp.jobTitle}</td>
-													<td>
-														{exp.fromDate + ' '}-{' ' + exp.toDate}
-													</td>
-													<td>
-														<button
-															onClick={() => this.props.delexp(exp._id)}
-															className="btn btn-danger"
-														>
-															Delete
-														</button>
-													</td>
-												</tr>
-											</React.Fragment>
-										);
-									})}
+									{this.props.pro.experience ? (
+										<React.Fragment>
+											{this.props.pro.experience.map((exp) => {
+												return (
+													<React.Fragment>
+														<tr>
+															<td>{exp.company}</td>
+															<td>{exp.jobTitle}</td>
+															<td>
+																{moment(exp.fromDate).format('MMM Do YY') + ' '}-{' ' + moment(exp.toDate).format('MMM Do YY')}
+															</td>
+															<td>
+																<button
+																	onClick={() => this.props.delexp(exp._id)}
+																	className="btn btn-danger"
+																>
+																	Delete
+																</button>
+															</td>
+														</tr>
+													</React.Fragment>
+												);
+											})}
+										</React.Fragment>
+									) : (
+										<h1 className="center"> Add experience</h1>
+									)}
 								</tbody>
 							</table>
 						</div>
@@ -128,31 +157,36 @@ class Dashbody extends Component {
 									</tr>
 								</thead>
 								<tbody>
-									{this.props.data.education.map((edu) => {
-										return (
-											<React.Fragment>
-												<tr>
-													<td>{edu.school}</td>
-													<td>{edu.degree}</td>
-													<td>
-														{edu.from + ' '}-{' ' + edu.to}
-													</td>
-													<td>
-														<button
-															onClick={() => this.props.deledu(edu._id)}
-															className="btn btn-danger"
-														>
-															Delete
-														</button>
-													</td>
-												</tr>
-											</React.Fragment>
-										);
-									})}
+									{this.props.pro.education.length > 0 ? (
+										<React.Fragment>
+											{this.props.pro.education.map((edu) => {
+												return (
+													<React.Fragment>
+														<tr>
+															<td>{edu.school}</td>
+															<td>{edu.degree}</td>
+															<td>
+																{moment(edu.from).format('MMM Do YY') + ' '}-{' ' + moment(edu.to).format('MMM Do YY')}
+															</td>
+															<td>
+																<button
+																	onClick={() => this.props.deledu(edu._id)}
+																	className="btn btn-danger"
+																>
+																	Delete
+																</button>
+															</td>
+														</tr>
+													</React.Fragment>
+												);
+											})}
+										</React.Fragment>
+									) : (
+										<h1 classNmae="center"> Add education</h1>
+									)}
 								</tbody>
 							</table>
 						</div>
-						<button className="btn btn-danger mb-3">Delete my acoount</button>
 					</div>
 				</div>
 			));

@@ -1,33 +1,66 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import heart from './svg/heart-regular.svg';
 import heartSolid from './svg/heart-solid.svg';
-export default function SinglePost() {
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import axios from 'axios';
+import postContext from '../contex/post/postContext';
+
+export default function SinglePost(props) {
+	const context = useContext(postContext);
+	const { like } = context;
+	const [ likes, setLikes ] = useState(false);
+	const [ likecount, setLikecount ] = useState(0);
+	const onClick = async (id) => {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		console.log(id);
+		try {
+			if (likes) {
+				setLikes(false);
+				setLikecount(likecount - 1);
+
+				const res = await axios.put(`/post/unlike/${id}`, config);
+				like(res.send, id);
+			} else {
+				setLikes(true);
+				setLikecount(likecount + 1);
+				const res = await axios.put(`/post/like/${id}`, config);
+				like(res.send, id);
+			}
+		} catch (error) {}
+	};
+
+	useEffect(() => {
+		setLikes(props.isliked[0]);
+		setLikecount(props.data.likes.length);
+		//eslint-disable-next-line
+	}, []);
+
 	return (
 		<div className="single_post mb-3">
 			<div className="header_post d-flex justify-content-start align-items-center">
-				<img
-					className="rounded-circle"
-					src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-					alt=""
-					height="55px"
-					width="55px"
-				/>
+				<img className="rounded-circle" src={'/' + props.data.avatar} alt="" height="55px" width="55px" />
 				<div>
-					<h5 className="m-0 ml-2">Janel Alam Tusher</h5>
-					<p className="time p-0 m-0 ml-2 small">12pm 27 june</p>
+					<h5 className="m-0 ml-2">
+						<Link to={`/profile/${props.data.profileId}`}>{props.data.name}</Link>
+					</h5>
+					<p className="time p-0 m-0 ml-2 small">{moment(props.data.date).format('MMM Do YY')}</p>
 				</div>
 			</div>
-			<div className="post_body">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas dolor corrupti rem at quibusdam. Ullam,
-				accusantium nisi, ipsum odit delectus facilis temporibus magnam itaque minima voluptates minus,
-				asperiores iusto dolorem!
-			</div>
+			<div className="post_body">{props.data.text}</div>
 			<div className="like d-flex  align-items-center">
-				<div>
-					<img src={heart} alt="" height="30px" width="30px" />
-					<img src={heartSolid} alt="" height="30px" width="30px" />
+				<div onClick={() => onClick(props.data._id)}>
+					{likes ? (
+						<img src={heartSolid} alt="" height="30px" width="30px" />
+					) : (
+						<img src={heart} alt="" height="30px" width="30px" />
+					)}
 				</div>
-				<p className="m-0 ml-2">30 Likes</p>
+				<p className="m-0 ml-2">{likecount}</p>
 			</div>
 		</div>
 	);
