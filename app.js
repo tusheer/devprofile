@@ -49,7 +49,7 @@ app.use(
 	}).single('avatar'),
 );
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/build/index.html'));
+	res.sendFile(path.join(__dirname + '/client/public/index.html'));
 });
 app.use('/api/users', users);
 app.use('/post', post);
