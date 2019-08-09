@@ -12,7 +12,7 @@ const Personal = (props) => {
 	const { user, token, isAuthenticated, userLoder, seturl, upload } = contextAuth;
 	const { getPro, data } = profileAuth;
 	const [ post, setPost ] = useState([]);
-	const [ pro, setPro ] = useState([]);
+
 	// eslint-disable-next-line
 	useEffect(() => seturl(props.match.path), []);
 
@@ -24,8 +24,11 @@ const Personal = (props) => {
 		};
 		try {
 			const res = await axios.get('/profile', config);
+			if (!res.data) {
+				props.history.push('/dashboard');
+			}
 			getPro(res.data);
-			setPro(res.data);
+
 			const resdata = await axios.get(`/post/${res.data._id}`, config);
 			setPost([ ...resdata.data ]);
 		} catch (error) {
@@ -39,7 +42,6 @@ const Personal = (props) => {
 	return (
 		<div>
 			<Profile
-				pro={pro}
 				getprofile={getprofile}
 				user={user}
 				token={token}
@@ -58,13 +60,14 @@ class Profile extends Component {
 	componentWillMount() {
 		if (this.props.token && !this.props.user) {
 			this.props.userLoder();
-			console.log(this.props.user);
+			this.props.getprofile();
 		} else {
 			if (!this.props.isAuth) {
 				this.props.replace();
 			}
 		}
 	}
+
 	componentDidMount() {
 		this.props.getprofile();
 	}
@@ -76,9 +79,10 @@ class Profile extends Component {
 				change={this.onChange}
 				url={this.props.user.avatar}
 				upload={this.props.upload}
-				user={this.props.user.name}
+				id={this.props.user._id}
 				post={this.props.post}
-				pro={this.props.pro}
+				user={this.props.user}
+				data={this.props.data}
 			/>
 		) : (
 			<Loder />
@@ -124,6 +128,17 @@ function BodyWraper(props) {
 		}
 	};
 
+	const verifi = (like, id) => {
+		let tusher = {};
+		for (let i = 0; i < like.length; i++) {
+			if (like[i].user === id) {
+				tusher.tusher = true;
+				break;
+			}
+		}
+		return tusher.tusher;
+	};
+
 	// const Tusher = <img className="img" src={props.url} alt="Profile" />;
 	const Shorna = <img className="img" src={url} alt="Profile" />;
 
@@ -154,24 +169,25 @@ function BodyWraper(props) {
 
 					<div className="profile_details col-sm-7 col-md-8 col-lg-9">
 						<div>
-							<h1>{props.pro.name}</h1>
-							<p>{props.pro.position}</p>
-							<p>{props.pro.location}</p>
+							<h1>{props.user.name}</h1>
+							<p>{props.data.position}</p>
+							<p>{props.data.location}</p>
 						</div>
 						<Icon />
 					</div>
 				</div>
 			</div>
 			<Body
-				id={props.pro._id}
-				bio={props.pro.bio}
-				skill={props.pro.skill}
-				company={props.pro.company}
-				experience={props.pro.experience}
-				education={props.pro.education}
-				companyWebsite={props.pro.companyWebsite}
+				id={props.id}
+				bio={props.data.bio}
+				skill={props.data.skill}
+				company={props.data.company}
+				experience={props.data.experience}
+				education={props.data.education}
+				companyWebsite={props.data.companyWebsite}
 				user={props.user}
 				post={props.post}
+				verifi={verifi}
 			/>
 		</div>
 	);
@@ -186,8 +202,7 @@ function Icon() {
 			<a className="text-light" href="https://www.linkedin.com/in/jane-alam-tusher-00398b158/" target="_blank">
 				<i className="fa fa-linkedin-square" />
 			</a>
-			
-			
+
 			<i className="fa fa-twitter-square" />
 			<i className="fa fa-instagram" />
 		</div>
@@ -222,13 +237,14 @@ function Body(props) {
 								)}
 							</div>
 						</div>
-						<div className="education">
-							<h3>
-								<i className="fa fa-graduation-cap" />Education
-							</h3>
-							<div className="education_wraper">
-								{props.education ? (
-									<React.Fragment>
+
+						<React.Fragment>
+							{props.education.length > 0 ? (
+								<div className="education">
+									<h3>
+										<i className="fa fa-graduation-cap" />Education
+									</h3>
+									<div className="education_wraper">
 										{props.education.map((education) => {
 											return (
 												<div key={education._id} className="single_education">
@@ -251,12 +267,18 @@ function Body(props) {
 												</div>
 											);
 										})}
-									</React.Fragment>
-								) : (
-									<h2 className="center">No education</h2>
-								)}
-							</div>
-						</div>
+									</div>
+								</div>
+							) : (
+								<div className="education">
+									<div className="education_wraper">
+										<h4 className="text-justify">
+											Here is no education dtata.Please add education data from dashboard
+										</h4>
+									</div>
+								</div>
+							)}
+						</React.Fragment>
 					</div>
 
 					<div className="col-md-7 col-lg-8 right">
@@ -265,7 +287,7 @@ function Body(props) {
 								<i className="fa fa-briefcase" /> Experience
 							</h3>
 							<div className="experience_wraper">
-								{props.experience ? (
+								{props.experience.length > 0 ? (
 									<React.Fragment>
 										{props.experience.map((exp) => {
 											return (
@@ -286,7 +308,7 @@ function Body(props) {
 										})}
 									</React.Fragment>
 								) : (
-									<h2 className="center">No education</h2>
+									<h2 className="center">No experience data.Please add from dashboard</h2>
 								)}
 							</div>
 						</div>
@@ -294,8 +316,8 @@ function Body(props) {
 						<div className="post">
 							<div className="post_header">
 								<h3 className="post_icon m-0">
-									<img alt="post" height="28px" src={svgWriting} /> {props.user.split(' ')[0] + "'s"}{' '}
-									post
+									<img alt="post" height="28px" src={svgWriting} />{' '}
+									{props.user.name.split(' ')[0] + "'s"} post
 								</h3>
 								<div className="post_wraper2">
 									{props.post.length > 0 ? (
@@ -305,17 +327,13 @@ function Body(props) {
 													<SinglePost
 														data={post}
 														key={post._id}
-														isliked={post.likes.map(
-															(like) => (like.user === props.id ? false : true),
-														)}
+														isliked={props.verifi(post.likes, props.id)}
 													/>
 												);
 											})}
 										</React.Fragment>
 									) : (
-										<div className="loderwraper">
-											<div className="loder" />
-										</div>
+										<h1>You have no post</h1>
 									)}
 								</div>
 							</div>

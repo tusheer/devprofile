@@ -35,7 +35,7 @@ export default function SinglePost(props) {
 	};
 
 	useEffect(() => {
-		setLikes(props.isliked[0]);
+		setLikes(props.isliked);
 		setLikecount(props.data.likes.length);
 		//eslint-disable-next-line
 	}, []);

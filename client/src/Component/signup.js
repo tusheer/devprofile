@@ -13,7 +13,7 @@ const Signup = (props) => {
 
 	useEffect(() => {
 		if (isAuthenticated && token) {
-			props.history.push('/');
+			props.history.push('/dashboard');
 		}
 	});
 	useEffect(() => {

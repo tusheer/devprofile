@@ -47,10 +47,11 @@ class Dev extends Component {
 						<h1>Developar's Profile</h1>
 						<p>Connect with developars</p>
 					</div>
-					<div className="profile container">
+					<div className='container'>
+					<div className="profile row">
 						{this.state.data.map((data) => {
 							return (
-								<div className="col-md-6" key={data._id}>
+								<div className="col-md-6 mb-3" key={data._id}>
 									<div className="single_profile ">
 										<div className="image">
 											<div className="image_wraper">
@@ -79,6 +80,7 @@ class Dev extends Component {
 								</div>
 							);
 						})}
+					</div>
 					</div>
 				</div>
 			));

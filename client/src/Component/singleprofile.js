@@ -91,6 +91,7 @@ function BodyWraper(props) {
 				user={props.user}
 				profile={props.data.userId}
 				post={props.post}
+				id={props.profile}
 			/>
 		</div>
 	);
@@ -108,6 +109,16 @@ function Icon() {
 }
 
 function Body(props) {
+	const verifi = (like,id)=>{
+		let tusher = {}
+		for (let i = 0; i < like.length; i++) { 
+  		if (like[i].user === id){
+    	tusher.tusher = true;
+    	break;
+  		}
+		}
+		return tusher.tusher;
+	}
 	return (
 		<div className="body container-fluid">
 			<div className="container">
@@ -200,9 +211,7 @@ function Body(props) {
 													<SinglePost
 														data={data}
 														key={data._id}
-														isliked={data.likes.map(
-															(like) => (like.user === props.profile ? false : true),
-														)}
+														isliked={verifi(data.likes,props.id)}
 													/>
 												);
 											})}

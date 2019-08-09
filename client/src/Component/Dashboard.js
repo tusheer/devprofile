@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import profileContext from '../contex/profile/profileContext';
 import authContext from '../contex/auth/authContext';
@@ -17,7 +17,7 @@ const Dashboard = (props) => {
 		seturl(props.match.path);
 		//eslint-disable-next-line
 	}, []);
-	const [ pro, setPro ] = useState(false);
+
 	const getprofile = async () => {
 		const config = {
 			headers: {
@@ -27,8 +27,6 @@ const Dashboard = (props) => {
 		try {
 			const res = await axios.get('/profile', config);
 			getPro(res.data);
-			setPro(res.data);
-			console.log(res.data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -45,8 +43,6 @@ const Dashboard = (props) => {
 			replace={replace}
 			isAuthenticated={isAuthenticated}
 			data={data}
-			pro={pro}
-			setPro={setPro}
 		/>
 	);
 };
@@ -65,14 +61,10 @@ class Dashbody extends Component {
 		}
 	}
 	componentDidMount() {
-		if (!this.props.data) {
-			this.props.getprofile();
-		} else {
-			this.props.setPro(this.props.data);
-		}
+		this.props.getprofile();
 	}
 	render() {
-		const data = this.props.pro;
+		const data = this.props.data;
 		let isloding;
 		if (data) {
 			return (isloding = (
@@ -80,7 +72,7 @@ class Dashbody extends Component {
 					<div className="dashboard_header mb-3">
 						<h1 className="pt-2 text-center">Dashboard</h1>
 						<p className="text-center ">
-							Wellcome to <Link to="/personal">{this.props.pro ? this.props.pro.name : ' '}</Link>
+							Wellcome to <Link to="/personal">{this.props.data ? this.props.data.name : ' '}</Link>
 						</p>
 						<div className="edit_panel d-flex justify-content-center m-2">
 							<Link to="/editprofile">
@@ -115,9 +107,9 @@ class Dashbody extends Component {
 								</thead>
 
 								<tbody>
-									{this.props.pro.experience ? (
+									{this.props.data.experience ? (
 										<React.Fragment>
-											{this.props.pro.experience.map((exp) => {
+											{this.props.data.experience.map((exp) => {
 												return (
 													<React.Fragment>
 														<tr>
@@ -157,9 +149,9 @@ class Dashbody extends Component {
 									</tr>
 								</thead>
 								<tbody>
-									{this.props.pro.education.length > 0 ? (
+									{this.props.data.education ? (
 										<React.Fragment>
-											{this.props.pro.education.map((edu) => {
+											{this.props.data.education.map((edu) => {
 												return (
 													<React.Fragment>
 														<tr>

@@ -10,7 +10,7 @@
     "clientinstall": "npm install --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "",
+  "author": "Jane Alam Tusher",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

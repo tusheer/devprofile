@@ -48,12 +48,25 @@ const Post = (props) => {
 				},
 			};
 			const res = await axios.get('post/', config);
-			console.log(res.data);
+		
 			getpost(res.data);
 			setPostData([ ...res.data ]);
 		} catch (error) {}
 	};
 
+
+
+
+	const verifi = (like,id)=>{
+		let tusher = {}
+		for (let i = 0; i < like.length; i++) { 
+  		if (like[i].user === id){
+    	tusher.tusher = true;
+    	break;
+  		}
+		}
+		return tusher.tusher;
+	}
 	return (
 		<PostWraper
 			onChange={onChange}
@@ -67,6 +80,7 @@ const Post = (props) => {
 			seturl={seturl}
 			getallpost={getallpost}
 			user={user}
+			verifi={verifi}
 		/>
 	);
 };
@@ -113,9 +127,8 @@ class PostWraper extends Component {
 									<SinglePost
 										data={data}
 										key={data._id}
-										isliked={data.likes.map(
-											(like) => (like.user === this.props.user.id ? false : true),
-										)}
+										isliked={this.props.verifi(data.likes,this.props.user._id)}
+								
 									/>
 								);
 							})}
