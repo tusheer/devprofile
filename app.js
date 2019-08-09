@@ -62,9 +62,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const port = process.env.PORT || 4000;
 mongoose
-	.connect('mongodb+srv://jaantusher:GHpiWSlRqHHjdUCG@cluster0-m7c3z.mongodb.net/test?retryWrites=true&w=majority', {
+	.connect('mongodb+srv://jaantusher:JAgvUQ7cQ7CFU8Gm@cluster0-m7c3z.mongodb.net/test?retryWrites=true&w=majority', {
 		useNewUrlParser: true,
 	})
-	.then(app.listen(port, () => console.log('game on')));
+	.then(app.listen(port, () => console.log('game on')))
+	.catch((err) => {
+		console.log(err);
+	});
 
 // mongodb+srv://jaantusher:GHpiWSlRqHHjdUCG@cluster0-m7c3z.mongodb.net/test?retryWrites=true&w=majority

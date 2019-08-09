@@ -13,7 +13,7 @@ const Editprofile = (props) => {
 		props.history.push('/login');
 	};
 	const push = () => {
-		props.history.push('/personal');
+		props.history.push('/dashboard');
 	};
 	// eslint-disable-next-line
 	useEffect(() => seturl(props.match.path), []);

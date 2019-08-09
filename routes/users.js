@@ -66,7 +66,9 @@ app.post('/signup', async (req, res) => {
 				res.status(400).json({ err: 'Acoount already created by this email' });
 			}
 		}
-	} catch (err) {}
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 app.post('/login', async (req, res) => {

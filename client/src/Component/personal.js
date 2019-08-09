@@ -239,7 +239,7 @@ function Body(props) {
 						</div>
 
 						<React.Fragment>
-							{props.education.length > 0 ? (
+							{props.education || props.education.length > 0 ? (
 								<div className="education">
 									<h3>
 										<i className="fa fa-graduation-cap" />Education

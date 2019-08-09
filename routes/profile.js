@@ -8,7 +8,9 @@ app.get('/', auth, async (req, res) => {
 	try {
 		const profile = await Profile.findOne({ userId: req.body.user });
 		res.send(profile);
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 app.get('/profile/:id', async (req, res) => {
@@ -17,7 +19,9 @@ app.get('/profile/:id', async (req, res) => {
 		console.log(id);
 		const profile = await Profile.findById(id).populate('userId', [ 'avatar' ]);
 		res.send(profile);
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 //experience deleted
