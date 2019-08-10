@@ -25,7 +25,7 @@ const Personal = (props) => {
 		try {
 			const res = await axios.get('/profile', config);
 			if (!res.data) {
-				props.history.push('/dashboard');
+				props.history.push('/editprofile');
 			}
 			getPro(res.data);
 

@@ -6,7 +6,7 @@ const Login = (props) => {
 	const { log_in, isAuthenticated, seturl, token, userLoder } = context;
 	useEffect(() => {
 		if (isAuthenticated && token) {
-			props.history.push('/dashboard');
+			props.history.push('/developers');
 		}
 	});
 	useEffect(() => {
