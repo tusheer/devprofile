@@ -4,6 +4,7 @@ import profileContext from '../contex/profile/profileContext';
 import authContext from '../contex/auth/authContext';
 import axios from 'axios';
 import moment from 'moment';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 const Dashboard = (props) => {
 	const contextProfile = useContext(profileContext);
 	const contextAuth = useContext(authContext);
@@ -106,35 +107,33 @@ class Dashbody extends Component {
 									</tr>
 								</thead>
 
-								<tbody>
-									{this.props.data.experience ? (
-										<React.Fragment>
-											{this.props.data.experience.map((exp) => {
-												return (
-													<React.Fragment>
-														<tr>
-															<td>{exp.company}</td>
-															<td>{exp.jobTitle}</td>
-															<td>
-																{moment(exp.fromDate).format('MMM Do YY') + ' '}-{' ' + moment(exp.toDate).format('MMM Do YY')}
-															</td>
-															<td>
-																<button
-																	onClick={() => this.props.delexp(exp._id)}
-																	className="btn btn-danger"
-																>
-																	Delete
-																</button>
-															</td>
-														</tr>
-													</React.Fragment>
-												);
-											})}
-										</React.Fragment>
-									) : (
-										<h1 className="center"> Add experience</h1>
-									)}
-								</tbody>
+								{this.props.data.experience ? (
+									<TransitionGroup component={'tbody'}>
+										{this.props.data.experience.map((exp) => {
+											return (
+												<CSSTransition key={exp._id} timeout={500} classNames="item">
+													<tr>
+														<td>{exp.company}</td>
+														<td>{exp.jobTitle}</td>
+														<td>
+															{moment(exp.fromDate).format('MMM Do YY') + ' '}-{' ' + moment(exp.toDate).format('MMM Do YY')}
+														</td>
+														<td>
+															<button
+																onClick={() => this.props.delexp(exp._id)}
+																className="btn btn-danger"
+															>
+																Delete
+															</button>
+														</td>
+													</tr>
+												</CSSTransition>
+											);
+										})}
+									</TransitionGroup>
+								) : (
+									<h1 className="center"> Add experience</h1>
+								)}
 							</table>
 						</div>
 						<div className="mt-2">
@@ -148,35 +147,34 @@ class Dashbody extends Component {
 										<th />
 									</tr>
 								</thead>
-								<tbody>
-									{this.props.data.education ? (
-										<React.Fragment>
-											{this.props.data.education.map((edu) => {
-												return (
-													<React.Fragment>
-														<tr>
-															<td>{edu.school}</td>
-															<td>{edu.degree}</td>
-															<td>
-																{moment(edu.from).format('MMM Do YY') + ' '}-{' ' + moment(edu.to).format('MMM Do YY')}
-															</td>
-															<td>
-																<button
-																	onClick={() => this.props.deledu(edu._id)}
-																	className="btn btn-danger"
-																>
-																	Delete
-																</button>
-															</td>
-														</tr>
-													</React.Fragment>
-												);
-											})}
-										</React.Fragment>
-									) : (
-										<h1 classNmae="center"> Add education</h1>
-									)}
-								</tbody>
+
+								{this.props.data.education ? (
+									<TransitionGroup component="tbody">
+										{this.props.data.education.map((edu) => {
+											return (
+												<CSSTransition key={edu._id} timeout={500} classNames="item">
+													<tr>
+														<td>{edu.school}</td>
+														<td>{edu.degree}</td>
+														<td>
+															{moment(edu.from).format('MMM Do YY') + ' '}-{' ' + moment(edu.to).format('MMM Do YY')}
+														</td>
+														<td>
+															<button
+																onClick={() => this.props.deledu(edu._id)}
+																className="btn btn-danger"
+															>
+																Delete
+															</button>
+														</td>
+													</tr>
+												</CSSTransition>
+											);
+										})}
+									</TransitionGroup>
+								) : (
+									<h1 classNmae="center"> Add education</h1>
+								)}
 							</table>
 						</div>
 					</div>

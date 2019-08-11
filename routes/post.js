@@ -7,10 +7,7 @@ const Profile = require('../models/profile');
 app.post('/', auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.body.user).select('-password');
-		const profile = await Profile.findOne({ userId: req.body.user });
-
 		const newPost = new Post({
-			profileId: profile._id,
 			text: req.body.text,
 			name: user.name,
 			avatar: user.avatar,
@@ -44,7 +41,27 @@ app.get('/', auth, async (req, res) => {
 // @access   Private
 app.get('/:id', auth, async (req, res) => {
 	try {
-		const post = await Post.find({ profileId: req.params.id });
+		const post = await Post.find({ user: req.body.user });
+
+		if (!post) {
+			return res.status(404).json({ msg: 'Post not found' });
+		}
+
+		res.json(post);
+	} catch (err) {
+		console.error(err.message);
+		if (err.kind === 'ObjectId') {
+			return res.status(404).json({ msg: 'Post not found' });
+		}
+		res.status(500).send('Server Error');
+	}
+});
+
+app.get('/profile/:id', async (req, res) => {
+	try {
+		const profile = await Profile.findById(req.params.id);
+		const post = await Post.find({ user: profile.userId._id });
+		res.send(post);
 
 		if (!post) {
 			return res.status(404).json({ msg: 'Post not found' });

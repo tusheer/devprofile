@@ -99,7 +99,7 @@ function Loder() {
 }
 
 function BodyWraper(props) {
-	const [ url, setUrl ] = useState('https://www.abc.net.au/news/image/8314104-1x1-940x940.jpg');
+	const [ url, setUrl ] = useState(null);
 
 	useEffect(
 		() => {
@@ -122,7 +122,9 @@ function BodyWraper(props) {
 				setUrl(res.data);
 
 				// if (res.data.length < 1)
-			} catch (error) {}
+			} catch (error) {
+				setUrl('https://www.abc.net.au/news/image/8314104-1x1-940x940.jpg');
+			}
 		} else {
 			console.log('select a picture');
 		}

@@ -24,7 +24,7 @@ const SingleProfile = (props) => {
 class Profile extends Component {
 	state = {
 		data: null,
-		post: [],
+		post: false,
 	};
 	componentWillMount() {
 		if (this.props.token && !this.props.user) {
@@ -32,8 +32,9 @@ class Profile extends Component {
 		}
 	}
 	async componentDidMount() {
+		console.log(this.props.id);
 		const res = await axios.get(`/profile/profile/${this.props.id}`);
-		const resdata = await axios.get(`/post/${this.props.id}`);
+		const resdata = await axios.get(`/post/profile/${this.props.id}`);
 
 		this.setState({ data: res.data, post: [ ...resdata.data ] });
 	}
@@ -45,7 +46,7 @@ class Profile extends Component {
 				user={this.state.data.name}
 				data={this.state.data}
 				post={this.state.post}
-				profile={this.props.user._id}
+				profile={!this.props.user ? null : this.props.user._id}
 			/>
 		) : (
 			<Loder />
@@ -109,16 +110,16 @@ function Icon() {
 }
 
 function Body(props) {
-	const verifi = (like,id)=>{
-		let tusher = {}
-		for (let i = 0; i < like.length; i++) { 
-  		if (like[i].user === id){
-    	tusher.tusher = true;
-    	break;
-  		}
+	const verifi = (like, id) => {
+		let tusher = {};
+		for (let i = 0; i < like.length; i++) {
+			if (like[i].user === id) {
+				tusher.tusher = true;
+				break;
+			}
 		}
 		return tusher.tusher;
-	}
+	};
 	return (
 		<div className="body container-fluid">
 			<div className="container">
@@ -204,23 +205,29 @@ function Body(props) {
 									post
 								</h3>
 								<div className="post_wraper2">
-									{props.post.length > 0 ? (
-										<React.Fragment>
-											{props.post.map((data) => {
-												return (
-													<SinglePost
-														data={data}
-														key={data._id}
-														isliked={verifi(data.likes,props.id)}
-													/>
-												);
-											})}
-										</React.Fragment>
-									) : (
-										<div className="loderwraper">
-											<div className="loder" />
-										</div>
-									)}
+									<React.Fragment>
+										{props.post ? (
+											<React.Fragment>
+												{props.post.length > 0 ? (
+													<React.Fragment>
+														{props.post.map((data) => {
+															return (
+																<SinglePost
+																	data={data}
+																	key={data._id}
+																	isliked={verifi(data.likes, props.id)}
+																/>
+															);
+														})}
+													</React.Fragment>
+												) : (
+													<h1>No post here</h1>
+												)}
+											</React.Fragment>
+										) : (
+											<h1>No post here</h1>
+										)}
+									</React.Fragment>
 								</div>
 							</div>
 						</div>

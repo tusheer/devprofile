@@ -70,5 +70,3 @@ mongoose
 	.catch((err) => {
 		console.log(err);
 	});
-
-// mongodb+srv://jaantusher:GHpiWSlRqHHjdUCG@cluster0-m7c3z.mongodb.net/test?retryWrites=true&w=majority

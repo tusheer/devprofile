@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import heart from './svg/heart-regular.svg';
 import heartSolid from './svg/heart-solid.svg';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import axios from 'axios';
 import postContext from '../contex/post/postContext';
@@ -46,7 +45,7 @@ export default function SinglePost(props) {
 				<img className="rounded-circle" src={'/' + props.data.avatar} alt="" height="55px" width="55px" />
 				<div>
 					<h5 className="m-0 ml-2">
-						<Link to={`/profile/${props.data.profileId}`}>{props.data.name}</Link>
+						<p className="mb-0">{props.data.name}</p>
 					</h5>
 					<p className="time p-0 m-0 ml-2 small">{moment(props.data.date).format('MMM Do YY')}</p>
 				</div>

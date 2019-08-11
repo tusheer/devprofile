@@ -21,7 +21,7 @@ import Education from './Component/education';
 
 import AuthState from './contex/auth/authState';
 
-function App(props) {
+function App() {
 	return (
 		<AuthState>
 			<Router>

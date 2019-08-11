@@ -16,6 +16,7 @@ const usersSchema = new userSchema({
 	},
 	avatar: {
 		type: String,
+		default: 'https://www.abc.net.au/news/image/8314104-1x1-940x940.jpg',
 	},
 });
 const User = mongoose.model('users', usersSchema);

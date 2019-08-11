@@ -1074,8 +1074,11 @@ $bg_ddd: rgb(231, 226, 226);
 
 .page {
     position: absolute;
-    left: 15px;
-    right: 15px;
+
+    top: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 .page-enter {
@@ -1099,3 +1102,19 @@ $bg_ddd: rgb(231, 226, 226);
     transform: scale(0.9);
     transition: opacity 300ms, transform 300ms;
 }
+
+//post animation
+.item-enter {
+    opacity: 0;
+  }
+  .item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .item-exit {
+    opacity: 1;
+  }
+  .item-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+  }

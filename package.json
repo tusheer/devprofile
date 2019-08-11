@@ -4,9 +4,9 @@
   "description": "This a server side code ",
   "main": "app.js",
   "scripts": {
-
+    "nodemon": "nodemon app.js",
     "start": " node app.js",
-    "dev": "concurrently \"npm run start\" \"cd client && npm start\"",
+    "dev": "concurrently \"npm run nodemon\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
 

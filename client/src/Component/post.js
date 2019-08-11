@@ -1,8 +1,9 @@
-import React, { useState, useContext, Component, useEffect, Fragment } from 'react';
+import React, { useState, useContext, Component, useEffect } from 'react';
 import SinglePost from './singlePost';
 import postContext from '../contex/post/postContext';
 import authContext from '../contex/auth/authContext';
 import axios from 'axios';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const Post = (props) => {
 	const [ postchange, setPostchange ] = useState({ text: '' });
@@ -48,25 +49,22 @@ const Post = (props) => {
 				},
 			};
 			const res = await axios.get('post/', config);
-		
+
 			getpost(res.data);
 			setPostData([ ...res.data ]);
 		} catch (error) {}
 	};
 
-
-
-
-	const verifi = (like,id)=>{
-		let tusher = {}
-		for (let i = 0; i < like.length; i++) { 
-  		if (like[i].user === id){
-    	tusher.tusher = true;
-    	break;
-  		}
+	const verifi = (like, id) => {
+		let tusher = {};
+		for (let i = 0; i < like.length; i++) {
+			if (like[i].user === id) {
+				tusher.tusher = true;
+				break;
+			}
 		}
 		return tusher.tusher;
-	}
+	};
 	return (
 		<PostWraper
 			onChange={onChange}
@@ -121,18 +119,19 @@ class PostWraper extends Component {
 				</div>
 				<div className="post_wraper container">
 					{this.props.postData.length > 0 ? (
-						<Fragment>
+						<TransitionGroup>
 							{this.props.postData.map((data) => {
 								return (
-									<SinglePost
-										data={data}
-										key={data._id}
-										isliked={this.props.verifi(data.likes,this.props.user._id)}
-								
-									/>
+									<CSSTransition key={data._id} timeout={500} classNames="item">
+										<SinglePost
+											data={data}
+											key={data._id}
+											isliked={this.props.verifi(data.likes, this.props.user._id)}
+										/>
+									</CSSTransition>
 								);
 							})}
-						</Fragment>
+						</TransitionGroup>
 					) : (
 						<div className="loderwraper">
 							<div className="loder" />

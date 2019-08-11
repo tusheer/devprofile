@@ -19,6 +19,7 @@ app.get('/profile/:id', async (req, res) => {
 		console.log(id);
 		const profile = await Profile.findById(id).populate('userId', [ 'avatar' ]);
 		res.send(profile);
+		console.log(profile);
 	} catch (error) {
 		console.log(error);
 	}

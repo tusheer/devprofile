@@ -20,6 +20,7 @@ const Education = (props) => {
 
 	useEffect(() => {
 		seturl(props.match.path);
+		// eslint-disable-next-line
 	}, []);
 
 	const [ error, setError ] = useState(false);
