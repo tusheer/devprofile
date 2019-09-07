@@ -7,6 +7,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/users.js');
 
 const signUp = require('../validation/signup.js');
+
+const sharp = require('sharp');
 app.get('/', auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.body.user).select('-password');
@@ -16,15 +18,33 @@ app.get('/', auth, async (req, res) => {
 	}
 });
 
-app.post('/image', auth, async (req, res) => {
+app.get('/image/:id', async (req, res) => {
+	const id = req.params.id;
+
+	const user = await User.findById(id);
+	res.set('Content-Type', 'image/jpg');
+	res.send(user.avatar);
+});
+
+app.get('/image', auth, async (req, res) => {
+	const user = await User.findById(req.body.user);
+	res.set('Content-Type', 'image/jpg');
+	res.send(user.avatar);
+});
+
+app.post('/image/upload', auth, async (req, res) => {
 	const file = req.file;
 	if (!file) {
 		res.send('File select');
 	}
+
+	const resize = await sharp(file.buffer).resize({ width: 320, height: 400 }).png().toBuffer();
+
 	try {
 		const user = await User.findById(req.body.user);
-		user.avatar = file.path;
+		user.avatar = resize;
 		await user.save();
+
 		res.send(user.avatar);
 	} catch (err) {
 		res.send(err);

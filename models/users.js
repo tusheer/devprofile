@@ -15,7 +15,7 @@ const usersSchema = new userSchema({
 		required: true,
 	},
 	avatar: {
-		type: String,
+		type: Buffer,
 		default: 'https://www.abc.net.au/news/image/8314104-1x1-940x940.jpg',
 	},
 });

@@ -69,7 +69,7 @@ function BodyWraper(props) {
 				<div className="container">
 					<div className="row">
 						<div className="col-sm-5 col-md-4 col-lg-3 image_wraper2">
-							<img src={'/' + props.data.userId.avatar} alt="Profile" />
+							<img src={'/api/users/image/' + props.data.userId._id} alt="Profile" />
 						</div>
 						<div className="profile_details col-sm-7 col-md-8 col-lg-9">
 							<div>
@@ -213,6 +213,7 @@ function Body(props) {
 														{props.post.map((data) => {
 															return (
 																<SinglePost
+																	url={'/api/users/image/' + props.profile._id}
 																	data={data}
 																	key={data._id}
 																	isliked={verifi(data.likes, props.id)}

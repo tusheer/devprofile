@@ -42,7 +42,7 @@ export default function SinglePost(props) {
 	return (
 		<div className="single_post mb-3">
 			<div className="header_post d-flex justify-content-start align-items-center">
-				<img className="rounded-circle" src={'/' + props.data.avatar} alt="" height="55px" width="55px" />
+				<img className="rounded-circle" src={props.url} alt="" height="55px" width="55px" />
 				<div>
 					<h5 className="m-0 ml-2">
 						<p className="mb-0">{props.data.name}</p>

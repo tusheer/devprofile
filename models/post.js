@@ -14,7 +14,7 @@ const PostSchema = new Schema({
 		type: String,
 	},
 	avatar: {
-		type: String,
+		type: Buffer,
 	},
 	likes: [
 		{

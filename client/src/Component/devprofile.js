@@ -47,40 +47,42 @@ class Dev extends Component {
 						<h1>Developar's Profile</h1>
 						<p>Connect with developars</p>
 					</div>
-					<div className='container'>
-					<div className="profile row">
-						{this.state.data.map((data) => {
-							return (
-								<div className="col-md-6 mb-3" key={data._id}>
-									<div className="single_profile ">
-										<div className="image">
-											<div className="image_wraper">
-												<img src={data.userId.avatar} alt="Profile" />
-											</div>
-										</div>
-										<div className="profile_details">
-											<div>
-												<div className="name">
-													<h3>{data.name}</h3>
-													<p>{data.position}</p>
+					<div className="container">
+						<div className="profile row">
+							{this.state.data.map((data) => {
+								return (
+									<div className="col-md-6 mb-3" key={data._id}>
+										<div className="single_profile ">
+											<div className="image">
+												<div className="image_wraper">
+													<img src={'/api/users/image/' + data.userId._id} alt="Profile" />
 												</div>
-												<div className="skill">
-													<div>
-														{data.skill.map((skill) => <span key={skill}>{skill}</span>)}
+											</div>
+											<div className="profile_details">
+												<div>
+													<div className="name">
+														<h3>{data.name}</h3>
+														<p>{data.position}</p>
 													</div>
-													<div>
-														<Link to={`/profile/${data._id}`}>
-															<button className="btn">View Profile</button>
-														</Link>
+													<div className="skill">
+														<div>
+															{data.skill.map((skill) => (
+																<span key={skill}>{skill}</span>
+															))}
+														</div>
+														<div>
+															<Link to={`/profile/${data._id}`}>
+																<button className="btn">View Profile</button>
+															</Link>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							);
-						})}
-					</div>
+								);
+							})}
+						</div>
 					</div>
 				</div>
 			));

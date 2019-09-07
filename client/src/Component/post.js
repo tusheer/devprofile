@@ -124,6 +124,7 @@ class PostWraper extends Component {
 								return (
 									<CSSTransition key={data._id} timeout={500} classNames="item">
 										<SinglePost
+											url={'/api/users/image/' + data.user}
 											data={data}
 											key={data._id}
 											isliked={this.props.verifi(data.likes, this.props.user._id)}

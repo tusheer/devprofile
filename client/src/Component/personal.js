@@ -9,7 +9,7 @@ import moment from 'moment';
 const Personal = (props) => {
 	const contextAuth = useContext(authContext);
 	const profileAuth = useContext(profileContext);
-	const { user, token, isAuthenticated, userLoder, seturl, upload } = contextAuth;
+	const { user, token, isAuthenticated, userLoder, seturl } = contextAuth;
 	const { getPro, data } = profileAuth;
 	const [ post, setPost ] = useState([]);
 
@@ -23,6 +23,7 @@ const Personal = (props) => {
 			},
 		};
 		try {
+			await userLoder();
 			const res = await axios.get('/profile', config);
 			if (!res.data) {
 				props.history.push('/editprofile');
@@ -48,7 +49,6 @@ const Personal = (props) => {
 				isAuth={isAuthenticated}
 				userLoder={userLoder}
 				replace={replace}
-				upload={upload}
 				post={post}
 				data={data}
 			/>
@@ -60,26 +60,21 @@ class Profile extends Component {
 	componentWillMount() {
 		if (this.props.token && !this.props.user) {
 			this.props.userLoder();
-			this.props.getprofile();
 		} else {
 			if (!this.props.isAuth) {
 				this.props.replace();
 			}
 		}
 	}
-
 	componentDidMount() {
 		this.props.getprofile();
 	}
-
 	render() {
 		// const { skill, name, company, companyWebsite, position, location, experience, education } = this.props.data;
 		return this.props.data ? (
 			<BodyWraper
 				change={this.onChange}
-				url={this.props.user.avatar}
 				upload={this.props.upload}
-				id={this.props.user._id}
 				post={this.props.post}
 				user={this.props.user}
 				data={this.props.data}
@@ -101,13 +96,6 @@ function Loder() {
 function BodyWraper(props) {
 	const [ url, setUrl ] = useState(null);
 
-	useEffect(
-		() => {
-			setUrl('/' + props.url);
-		},
-		[ props.url ],
-	);
-
 	const onChange = async (e) => {
 		const avatar = e.target.files;
 
@@ -117,14 +105,14 @@ function BodyWraper(props) {
 
 		if (avatar) {
 			try {
-				const res = await axios.post('api/users/image', form);
-				props.upload(res.data);
-				setUrl(res.data);
+				const res = await axios.post('api/users/image/upload', form);
+				await props.upload(res.data);
+				console.log(res.data);
+				await setUrl(res.data);
+				console.log(url);
 
 				// if (res.data.length < 1)
-			} catch (error) {
-				setUrl('https://www.abc.net.au/news/image/8314104-1x1-940x940.jpg');
-			}
+			} catch (error) {}
 		} else {
 			console.log('select a picture');
 		}
@@ -142,23 +130,15 @@ function BodyWraper(props) {
 	};
 
 	// const Tusher = <img className="img" src={props.url} alt="Profile" />;
-	const Shorna = <img className="img" src={url} alt="Profile" />;
 
 	return (
 		<div>
 			<div className="header container-fluid">
 				<div className="row">
-					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper ">
+					<div className="col-sm-5 col-md-4 col-lg-3 image_wraper pl-3 pr-3 ">
 						<div className="image_inner h-100   position-relative">
-							{url ? (
-								Shorna
-							) : (
-								<img
-									className="img"
-									src="https://www.abc.net.au/news/image/8314104-1x1-940x940.jpg"
-									alt="profile"
-								/>
-							)}
+							<img className="img" src={'/api/users/image/' + props.user._id} alt="profile" />
+
 							<div className="image2">
 								<div className="btn  btn_image position-relative">
 									<i className="fa fa-camera d-inline-block text-white" />
@@ -171,7 +151,7 @@ function BodyWraper(props) {
 
 					<div className="profile_details col-sm-7 col-md-8 col-lg-9">
 						<div>
-							<h1>{props.user.name}</h1>
+							<h1>{props.user ? props.user.name : ' '}</h1>
 							<p>{props.data.position}</p>
 							<p>{props.data.location}</p>
 						</div>
@@ -180,7 +160,6 @@ function BodyWraper(props) {
 				</div>
 			</div>
 			<Body
-				id={props.id}
 				bio={props.data.bio}
 				skill={props.data.skill}
 				company={props.data.company}
@@ -327,9 +306,10 @@ function Body(props) {
 											{props.post.map((post) => {
 												return (
 													<SinglePost
+														url={'/api/users/image'}
 														data={post}
 														key={post._id}
-														isliked={props.verifi(post.likes, props.id)}
+														isliked={props.verifi(post.likes, props.user._id)}
 													/>
 												);
 											})}

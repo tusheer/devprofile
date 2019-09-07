@@ -7,6 +7,7 @@ const multer = require('multer');
 const post = require('./routes/post.js');
 const profile = require('./routes/profile.js');
 const users = require('./routes/users.js');
+require('dotenv').config();
 
 app.use(function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
@@ -20,15 +21,15 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const fileStorage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, 'uploads');
-	},
-	filename: (req, file, cb) => {
-		const ts = new Date().getTime().toString();
-		cb(null, ts + '-' + file.originalname);
-	},
-});
+// const fileStorage = multer.diskStorage({
+// 	destination: (req, file, cb) => {
+// 		cb(null, 'uploads');
+// 	},
+// 	filename: (req, file, cb) => {
+// 		const ts = new Date().getTime().toString();
+// 		cb(null, ts + '-' + file.originalname);
+// 	},
+// });
 
 const fileFilter = (req, file, cb) => {
 	if (
@@ -44,7 +45,7 @@ const fileFilter = (req, file, cb) => {
 
 app.use(
 	multer({
-		storage: fileStorage,
+		// storage: fileStorage,
 		fileFilter,
 	}).single('avatar'),
 );
@@ -63,10 +64,10 @@ app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build
 
 const port = process.env.PORT || 4000;
 mongoose
-	.connect('mongodb+srv://jaantusher:JAgvUQ7cQ7CFU8Gm@cluster0-m7c3z.mongodb.net/test?retryWrites=true&w=majority', {
+	.connect(process.env.MONGO, {
 		useNewUrlParser: true,
 	})
-	.then(app.listen(port, () => console.log('game on')))
+	.then(app.listen(4000, () => console.log('game on')))
 	.catch((err) => {
 		console.log(err);
 	});
