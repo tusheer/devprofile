@@ -67,7 +67,7 @@ mongoose
 	.connect(process.env.MONGO, {
 		useNewUrlParser: true,
 	})
-	.then(app.listen(4000, () => console.log('game on')))
+	.then(app.listen(port, () => console.log('game on')))
 	.catch((err) => {
 		console.log(err);
 	});
