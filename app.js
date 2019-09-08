@@ -56,15 +56,13 @@ app.use('/api/users', users);
 app.use('/post', post);
 app.use('/profile', profile);
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')));
 
 const port = process.env.PORT || 4000;
 mongoose
-	.connect(process.env.MONGO, {
+	.connect('mongodb+srv://jaantusher:JAgvUQ7cQ7CFU8Gm@cluster0-m7c3z.mongodb.net/test?retryWrites=true&w=majority', {
 		useNewUrlParser: true,
 	})
 	.then(app.listen(port, () => console.log('game on')))
